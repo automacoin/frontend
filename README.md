@@ -1,1 +1,1 @@
-# Automacoin Frontend
+# Automacoin Client
