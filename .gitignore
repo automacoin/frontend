@@ -1,0 +1,5 @@
+# Dependecies' code is not part of source code
+node_modules    
+
+# Build output is not part source code
+dist
