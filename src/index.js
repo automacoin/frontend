@@ -1,3 +1,4 @@
-import './styles.css';
+import './styles.scss';
+import 'alpinejs';
+import './app/app';
 
-console.log('Hello from Automacoin Client!');

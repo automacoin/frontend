@@ -1,11 +1,16 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-
+const PATHS = {
+    src: path.join(__dirname, 'src')
+}
 
 module.exports = {
     entry: {
@@ -15,7 +20,7 @@ module.exports = {
         rules: [
             {
                 test: /\.m?js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -25,8 +30,8 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             }
         ]
     },
@@ -39,7 +44,11 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: './assets/css/styles.css',
+            filename: './assets/css/[name].css',
+            chunkFilename: '/assets/css/[id].css',
+        }),
+        new PurgecssPlugin({
+            paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
         }),
         new HtmlWebpackPlugin({
             template: './src/index.html'
@@ -48,7 +57,25 @@ module.exports = {
             logo: './src/logo.png',
             mode: 'light',
         }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'node_modules/xterm/css', to: 'assets/css/' },
+            ],
+        }),
     ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        }
+    },
     output: {
         filename: 'assets/js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
