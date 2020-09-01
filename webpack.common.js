@@ -59,7 +59,7 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { from: 'node_modules/xterm/css', to: 'assets/css/' },
+                { from: 'src/assets/public', to :'assets'}
             ],
         }),
     ],
