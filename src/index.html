@@ -1,3 +1,5 @@
+<!--Copyright (c) 2020 AutomaCoin-->
+
 <!doctype html>
 
 <html lang="en">
@@ -6,11 +8,14 @@
     <meta charset="utf-8">
 
     <title>AutomaCoin Client</title>
-    <meta name="description" content="AutomaCoin Client">
+    <meta name="description" content="AutomaCoin WebClient">
     <meta name="author" content="Alessio Proietti">
 </head>
 
 <body>
+    <div id="pageloader" class="pageloader is-active">
+        <span class="title">AutomaCoin WebClient is loading...</span>
+    </div>
     <div class="py-5" style="height:100%; background-image: url('assets/images/bg-image.jpg')">
         <div class="mt-3 py-3 container">
             <div class="box">
@@ -22,7 +27,8 @@
                                     <h1 class="title">AutomaCoin</h1>
                                     <h2 class="subtitle">W e b &nbsp; C l i e n t</h2>
                                     <p>
-                                        Help scientists compute models of the world by mining <strong>a ​new kind</strong> of responsible
+                                        Help scientists compute models of the world by mining <strong>a ​new
+                                            kind</strong> of responsible
                                         and universal cryptocurrency.
                                     </p>
                                 </div>
@@ -61,6 +67,11 @@
                                                     Cancel
                                                 </button>
                                             </p>
+                                        </div>
+                                        <div class="field">
+                                            <input id="switchGPU" type="checkbox" name="switchGPU"
+                                                class="switch is-rounded is-info" checked="checked">
+                                            <label for="switchGPU">Disable GPU</label>
                                         </div>
                                         </p>
                                     </div>

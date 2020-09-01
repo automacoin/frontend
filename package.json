@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "alpinejs": "^2.6.0",
+    "bulma-pageloader": "^0.3.0",
+    "bulma-switch": "^2.0.0",
     "grumle-turing": "^1.0.3"
   }
 }
