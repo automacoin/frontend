@@ -32,7 +32,7 @@
                                         and universal cryptocurrency.
                                     </p>
                                 </div>
-                                <div class="tile is-child box">
+                                <div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
                                     <div class="media">
                                         <div class="media-left">
                                             <figure class="image is-48x48">
@@ -43,6 +43,7 @@
                                         <div class="media-content">
                                             <p class="title is-4">Alessio Proietti</p>
                                             <p class="subtitle is-6">@flexios</p>
+                                            <div id="histogram"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,10 +81,10 @@
                         </div>
                     </div>
                     <div class="tile is-parent">
-                        <div class="tile is-child">
+                        <div x-data="dashboardComponent()" class="tile is-child">
                             <nav class="panel">
                                 <p class="panel-heading">
-                                    <span>Your</span> Dashboard
+                                    <span x-text="title"></span>
                                 </p>
                                 <div class="panel-block">
                                     <p class="control has-icons-left">
