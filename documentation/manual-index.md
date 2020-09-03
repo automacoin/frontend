@@ -2,6 +2,15 @@
 
 ## Usage
 
+The app uses yarn as package manager.
+
+Install all dependencies by executing
+
+```
+    yarn 
+```
+
+
 Run locally, leveraging webpack-dev-server
 
 ```
