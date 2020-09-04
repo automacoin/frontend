@@ -1,0 +1,24 @@
+<div class="box">
+    <div class="tile is-ancestor">
+        <div class="tile is-8">
+            <div class="tile is-vertical">
+                <div class="tile is-parent">
+                    <div class="tile is-child box is-5">
+                        {% include "banner.njk" %}
+                    </div>
+                    <div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
+                        {% include "userprofile.njk" %}
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <div class="tile is-child box">
+                        {% include "options.njk" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-parent">
+            {% include "dashboard.njk" %}
+        </div>
+    </div>
+</div>
