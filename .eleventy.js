@@ -31,6 +31,8 @@ module.exports = function (eleventyConfig) {
       : "";
   });
 
+  eleventyConfig.addPassthroughCopy({ "src/assets/public": "/assets" });
+
   eleventyConfig.setBrowserSyncConfig({ files: ["src/includes/*.njk"] });
 
   return {

@@ -5,7 +5,6 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, 'src')
@@ -47,11 +46,6 @@ module.exports = {
         new FaviconsWebpackPlugin({
             logo: './src/logo.png',
             mode: 'light',
-        }),
-        new CopyPlugin({
-            patterns: [
-                { from: 'src/assets/public', to: 'assets' }
-            ],
         }),
         new ManifestPlugin(),
     ],
