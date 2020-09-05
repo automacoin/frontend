@@ -21,11 +21,12 @@ function barChart(data) {
 }
 
 export function ultimateQuestion() {
-    return 42;
+    return 43;
 }
 
 export function dashboardComponent() {
     return {
+        tab: "sources",
         title: "Your Dashboard"
     }
 }

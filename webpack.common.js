@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
@@ -39,14 +39,10 @@ module.exports = {
             banner: 'Copyright (c) 2020 AutomaCoin'
         }),
         new MiniCssExtractPlugin({
-            filename: './assets/css/styles.[contenthash].css',
-            chunkFilename: '/assets/css/styles.[id].css', 
+            filename: '/assets/css/styles.css',
         }),
         new PurgecssPlugin({
             paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-        }),
-        new HtmlWebpackPlugin({
-            template: './dist/11ty-output/index.html'
         }),
         new FaviconsWebpackPlugin({
             logo: './src/logo.png',
@@ -57,22 +53,10 @@ module.exports = {
                 { from: 'src/assets/public', to: 'assets' }
             ],
         }),
+        new ManifestPlugin(),
     ],
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
-    },
     output: {
-        path: path.resolve(__dirname, 'dist', 'build'),
-        filename: 'assets/js/bundle.[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'assets/js/bundle.js',
     }
 }
