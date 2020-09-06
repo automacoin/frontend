@@ -20,6 +20,10 @@ module.exports = function (eleventyConfig) {
       : "";
   });
 
+  eleventyConfig.addShortcode("xtermCss", function () {
+    return `<link href="assets/css/xterm.css" rel="stylesheet" />`;
+  });
+
   eleventyConfig.addShortcode("bundledJs", function () {
     return manifest["main.js"]
       ? `<script src="${manifest["main.js"]}"></script>`
@@ -32,7 +36,7 @@ module.exports = function (eleventyConfig) {
       : "";
   });
 
-  eleventyConfig.addPassthroughCopy({ "src/assets/public": "/assets" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/public": "assets" });
 
   eleventyConfig.setBrowserSyncConfig({ files: ["src/includes/*.njk"] });
 
