@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": "true",
   "scripts": {
-    "serve:assets": "webpack --config webpack.dev.js --watch",
-    "serve:eleventy": "eleventy --serve",
+    "serve:assets": "APP_ENV=development webpack --config webpack.dev.js --watch",
+    "serve:eleventy": "APP_ENV=development eleventy --serve",
     "serve": "run-p serve:*",
     "build:assets": "webpack --config webpack.prod.js",
     "build:eleventy": "eleventy",

@@ -1,13 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 
+const isDev = process.env.APP_ENV === "development";
+
 const manifestPath = path.resolve(__dirname, "dist", "manifest.json");
-const manifest = {
-  "main.css": "/assets/css/styles.css",
+const manifest = isDev ? {
+  "main.css": "/assets/css/bundle.css",
   "main.js": "assets/js/bundle.js",
   "assets/favicon.png": "assets/favicon.png",
-  "assets/images/bg-image.jpg": "assets/images/bg-image.jpg"
-} || JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf8" }));
+} : JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf8" }));
 
 module.exports = function (eleventyConfig) {
 

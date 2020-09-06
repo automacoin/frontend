@@ -10,7 +10,12 @@ const PATHS = {
     src: path.join(__dirname, 'src')
 }
 
+const isDev = process.env.APP_ENV === 'development';
+
+const baseFilename = isDev ? 'bundle' : 'bundle.[contenthash]';
+
 module.exports = {
+
     entry: [
         path.resolve(__dirname, 'src', 'index.js'),
         path.resolve(__dirname, 'src', 'styles.scss'),
@@ -38,7 +43,7 @@ module.exports = {
             banner: 'Copyright (c) 2020 AutomaCoin'
         }),
         new MiniCssExtractPlugin({
-            filename: '/assets/css/styles.css',
+            filename: `/assets/css/${baseFilename}.css`,
         }),
         new PurgecssPlugin({
             paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
@@ -51,6 +56,6 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'assets/js/bundle.js',
+        filename: `assets/js/${baseFilename}.js`,
     }
 }
