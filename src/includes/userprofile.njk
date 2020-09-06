@@ -1,12 +1,47 @@
-<div class="media">
-    <div class="media-left">
-        <figure class="image is-48x48">
-            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-        </figure>
+<div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
+    <div class="media">
+        <div class="media-left">
+            <figure class="image is-48x48" @click="smodal =! smodal">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <p class="title is-4">Alessio Proietti</p>
+            <p class="subtitle is-6">@flexios</p>
+            <div id="histogram"></div>
+        </div>
     </div>
-    <div class="media-content">
-        <p class="title is-4">Alessio Proietti</p>
-        <p class="subtitle is-6">@flexios</p>
-        <div id="histogram"></div>
+
+    <div class="modal" :class="{ 'is-active': smodal === true }">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title"></p>
+                <button class="delete" aria-label="close" @click="smodal =! smodal"></button>
+            </header>
+            <section class="modal-card-body">
+
+                <div class="field">
+                    <div class="control ">
+                        <input class="input " type="text" placeholder="Email" value="">
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input " type="email" placeholder="Password" value="">
+                    </div>
+                </div>
+
+                <button class="button is-info is-fullwidth" @click="smodal =! smodal">Log In</button>
+
+                <div class="is-divider" data-content="OR"></div>
+
+                <button class="button is-success is-fullwidth" @click="smodal =! smodal">Sign Up</button>
+            </section>
+            <footer class="modal-card-foot"></footer>
+        </div>
     </div>
+
 </div>

@@ -34,7 +34,7 @@ export function dashboardComponent() {
 export function userProfileComponent() {
     return {
 
-        
+        smodal: false,
 
         histogram: () => {
             document.querySelector('#histogram').appendChild(barChart([6,10,2]));
