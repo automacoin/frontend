@@ -10,6 +10,10 @@ This is the documentation of the Web Client:
 * [Manual](documentation/manual-index.md)
 * [Architecture](documentation/architecture-index.md)
 
+## How It appers now
+
+![Client Automacoin Screen](/documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
+
 ## References
 
 * [Calculating Kolmogorov Complexity from the Output Frequency Distributions of Small Turing Machines](https://arxiv.org/abs/1211.1302)
