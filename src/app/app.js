@@ -34,6 +34,8 @@ export function dashboardComponent() {
 export function userProfileComponent() {
     return {
 
+        onpic: false,
+
         smodal: false,
 
         histogram: () => {

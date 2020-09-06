@@ -1,13 +1,13 @@
 <div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
     <div class="media">
-        <div class="media-left">
-            <figure class="image is-48x48" @click="smodal =! smodal">
+        <div class="media-left" >
+            <figure class="image is-48x48" @mouseover="onpic=true" @mouseout="onpic=false" @click="smodal =! smodal">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
             </figure>
         </div>
         <div class="media-content">
-            <p class="title is-4">Alessio Proietti</p>
-            <p class="subtitle is-6">@flexios</p>
+            <p class="title is-4" :class="{ 'has-text-info': onpic === true }">Alessio Proietti</p>
+            <p class="subtitle is-6" :class="{ 'has-text-info': onpic === true }">@flexios</p>
             <div id="histogram"></div>
         </div>
     </div>
@@ -34,11 +34,15 @@
                     </div>
                 </div>
 
-                <button class="button is-info is-fullwidth" @click="smodal =! smodal">Log In</button>
+                <button class="button is-info is-fullwidth" @click="smodal =! smodal">
+                    <span>Log in</span>
+                </button>
 
                 <div class="is-divider" data-content="OR"></div>
 
-                <button class="button is-success is-fullwidth" @click="smodal =! smodal">Sign Up</button>
+                <button class="button is-success is-fullwidth" @click="smodal =! smodal">
+                    <span>Sign up</span>
+                </button>
             </section>
             <footer class="modal-card-foot"></footer>
         </div>
