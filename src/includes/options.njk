@@ -1,14 +1,14 @@
-<div class="tile is-child box">
+<div x-data="optionsComponent()" class="tile is-child box">
     <div class="container">
         <p class="content has-text-centered">
             <div class="field is-grouped">
                 <p class="control">
-                    <button disabled="disabled" class="button is-success   is-rounded">
+                    <button disabled="disabled" class="button is-success is-rounded">
                         Start
                     </button>
                 </p>
                 <p class="control">
-                    <button class="button  is-warning is-rounded">
+                    <button @click="fetch()" x-bind:disabled="fetching" class="button is-warning is-rounded">
                         Fetch
                     </button>
                 </p>
@@ -18,10 +18,13 @@
                     </button>
                 </p>
             </div>
-            <div class="field">
-                <input id="switchGPU" type="checkbox" name="switchGPU" class="switch is-rounded is-info" checked="checked">
-                <label for="switchGPU">Disable GPU</label>
+            <div class="field is-grouped">
+                <p class="control">
+                    <input id="switchGPU" type="checkbox" name="switchGPU" class="switch is-rounded is-info" checked="checked">
+                    <label for="switchGPU">Control GPU</label>
+                </p>
             </div>
+            <div id="spinner"></div>
         </p>
     </div>
 </div>

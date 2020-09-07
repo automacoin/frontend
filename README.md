@@ -14,6 +14,9 @@ This is the documentation of the Web Client:
 
 ![Client Automacoin Screen](/documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
 
+![Client Automacoin Screen2](/documentation/screenshot2.jpeg?raw=true "Client Automacoin Screen2")
+
+
 ## References
 
 * [Calculating Kolmogorov Complexity from the Output Frequency Distributions of Small Turing Machines](https://arxiv.org/abs/1211.1302)

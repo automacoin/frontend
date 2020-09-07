@@ -24,6 +24,10 @@ module.exports = function (eleventyConfig) {
     return `<link href="assets/css/xterm.css" rel="stylesheet" />`;
   });
 
+  eleventyConfig.addShortcode("spinCss", function () {
+    return `<link href="assets/css/spin.css" rel="stylesheet" />`;
+  });
+
   eleventyConfig.addShortcode("bundledJs", function () {
     return manifest["main.js"]
       ? `<script src="${manifest["main.js"]}"></script>`

@@ -1,0 +1,20 @@
+export const SPINNEROPTS = {
+    lines: 11,
+    length: 30,
+    width: 6,
+    radius: 25,
+    scale: 1,
+    corners: 1,
+    speed: 1,
+    rotate: 0,
+    animation: "spinner-line-fade-quick",
+    direction: 1,
+    color: "#1881f2",
+    fadeColor: "transparent",
+    top: "50%",
+    left: "75%",
+    shadow: "0 0 1px transparent",
+    zIndex: 2000000000,
+    className: "spinner",
+    position: "absolute"
+}
