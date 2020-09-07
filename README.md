@@ -16,6 +16,7 @@ This is the documentation of the Web Client:
 
 ![Client Automacoin Screen2](/documentation/screenshot2.jpeg?raw=true "Client Automacoin Screen2")
 
+![Client Automacoin Screen3](/documentation/screenshot3.jpeg?raw=true "Client Automacoin Screen3")
 
 ## References
 

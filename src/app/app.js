@@ -29,6 +29,7 @@ export function ultimateQuestion() {
 
 export function dashboardComponent() {
     return {
+        expand: false,
         tab: "nodes",
         title: "Your Dashboard",
         term: new Terminal({
@@ -45,13 +46,21 @@ export function dashboardComponent() {
         }),
 
         init: function () {
-            this.term.open(document.getElementById('term'));
-            this.termOutput.open(document.getElementById('termOutput'));
-            this.termProblems.open(document.getElementById('termProblems'));
+            this.term.open(document.getElementById('terminal'));
+            this.termOutput.open(document.getElementById('output'));
+            this.termProblems.open(document.getElementById('problems'));
 
             this.term.write('Hello from Terminal');
             this.termOutput.write('Hello from Output');
             this.termProblems.write('Hello from Problems');
+        },
+
+        detach: function () {
+            document.getElementById('terminalOverlay').appendChild(document.getElementById(this.tab))
+        },
+
+        attach: function () {
+            document.getElementById('terminalHarbor').appendChild(document.getElementById(this.tab))
         }
     }
 }
