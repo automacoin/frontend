@@ -4,15 +4,12 @@
             <span x-text="title"></span>
         </p>
         <div class="panel-block">
-            <p class="control has-icons-left">
-                <input class="input" type="text" placeholder="Search">
-                <span class="icon is-left">
-                    <i class="fas fa-camera" aria-hidden="true"></i>
-                </span>
-            </p>
+            <button class="button is-link is-outlined is-fullwidth">
+                Open your Wallet
+            </button>
         </div>
         <p class="panel-tabs">
-            <a :class="{ 'is-active': tab === 'sources' }" @click="tab = 'sources'">Sources</a>
+            <a :class="{ 'is-active': tab === 'nodes' }" @click="tab = 'nodes'">Nodes</a>
             <a :class="{ 'is-active': tab === 'problems' }" @click="tab = 'problems'">Problems</a>
             <a :class="{ 'is-active': tab === 'output' }" @click="tab = 'output'">Output</a>
             <a :class="{ 'is-active': tab === 'terminal' }" @click="tab = 'terminal'">Terminal</a>
@@ -20,7 +17,7 @@
         <div x-show="tab === 'problems'" id="termProblems"></div>
         <div x-show="tab === 'output'" id="termOutput"></div>
         <div x-show="tab === 'terminal'" id="term"></div>
-        <div x-show="tab === 'sources'">
+        <div x-show="tab === 'nodes'">
             <a class="panel-block is-active">
                 <span class="panel-icon">
                     <i class="fas fa-book" aria-hidden="true"></i>
@@ -51,15 +48,24 @@
                     --
                 </span>
             </a>
-            <label class="panel-block">
-                <input type="checkbox">
-                remember me
-            </label>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    --
+                </span>
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    --
+                </span>
+            </a>
         </div>
-        <div class="panel-block">
-            <button class="button is-link is-outlined is-fullwidth">
-                Open your Wallet
+        <div x-show="tab !== 'nodes'" class="panel-block">
+            <button class="button is-info is-outlined is-fullwidth">
+                Expand
             </button>
         </div>
+
     </nav>
 </div>

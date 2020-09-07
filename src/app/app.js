@@ -29,19 +29,19 @@ export function ultimateQuestion() {
 
 export function dashboardComponent() {
     return {
-        tab: "sources",
+        tab: "nodes",
         title: "Your Dashboard",
         term: new Terminal({
-            cols: 40,
-            rows: 12
+            cols: 38,
+            rows: 10
         }),
         termOutput: new Terminal({
-            cols: 40,
-            rows: 12
+            cols: 38,
+            rows: 10
         }),
         termProblems: new Terminal({
-            cols: 40,
-            rows: 12
+            cols: 38,
+            rows: 10
         }),
 
         init: function () {
