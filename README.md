@@ -10,7 +10,7 @@ This is the documentation of the Web Client:
 * [Manual](./documentation/manual-index.md)
 * [Architecture](./documentation/architecture-index.md)
 
-## How It appers now
+## How It appers now (it changes every day now, please run a local copy)
 
 ![Client Automacoin Screen](./documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
 
@@ -18,7 +18,7 @@ This is the documentation of the Web Client:
 
 ![Client Automacoin Screen3](./documentation/screenshot3.jpeg?raw=true "Client Automacoin Screen3")
 
-![Client Automacoin Screen4](./documentation/screenshot4.jpeg?raw=true "Client Automacoin Screen4")
+![Client Automacoin Screen4](./documentation/screenshot4.jpeg?raw=true "Client Automacoin Screen4") 
 
 
 ## References
