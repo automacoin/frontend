@@ -6,3 +6,7 @@ dist
 
 # Results of jest --coverage tests
 coverage
+
+# Results of markdown preview
+out
+

@@ -3,11 +3,6 @@
         <p class="panel-heading">
             <span x-text="title"></span>
         </p>
-        <div class="panel-block">
-            <button class="button is-link is-outlined is-fullwidth">
-                Open your Wallet
-            </button>
-        </div>
         <p class="panel-tabs">
             <a :class="{ 'is-active': tab === 'nodes' }" @click="tab = 'nodes'">Nodes</a>
             <a :class="{ 'is-active': tab === 'problems' }" @click="tab = 'problems'">Problems</a>

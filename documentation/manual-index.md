@@ -11,13 +11,13 @@ Install all dependencies by executing
 ```
 
 
-Run locally, leveraging webpack-dev-server
+Run locally, leveraging BrowserSync
 
 ```
     yarn serve 
 ```
 
-or build in production mode
+or build in production mode to deploy the package
 
 ```
     yarn build 

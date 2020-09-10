@@ -7,18 +7,18 @@ Here the link to the project website: https://www.automacoin.com.
 
 This is the documentation of the Web Client: 
 
-* [Manual](documentation/manual-index.md)
-* [Architecture](documentation/architecture-index.md)
+* [Manual](./documentation/manual-index.md)
+* [Architecture](./documentation/architecture-index.md)
 
 ## How It appers now
 
-![Client Automacoin Screen](/documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
+![Client Automacoin Screen](./documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
 
-![Client Automacoin Screen2](/documentation/screenshot2.jpeg?raw=true "Client Automacoin Screen2")
+![Client Automacoin Screen2](./documentation/screenshot2.jpeg?raw=true "Client Automacoin Screen2")
 
-![Client Automacoin Screen3](/documentation/screenshot3.jpeg?raw=true "Client Automacoin Screen3")
+![Client Automacoin Screen3](./documentation/screenshot3.jpeg?raw=true "Client Automacoin Screen3")
 
-![Client Automacoin Screen4](/documentation/screenshot4.jpeg?raw=true "Client Automacoin Screen4")
+![Client Automacoin Screen4](./documentation/screenshot4.jpeg?raw=true "Client Automacoin Screen4")
 
 
 ## References

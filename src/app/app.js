@@ -32,34 +32,37 @@ export function dashboardComponent() {
         expand: false,
         tab: "nodes",
         title: "Your Dashboard",
-        term: new Terminal({
+        terminal: new Terminal({
             cols: 38,
             rows: 10
         }),
-        termOutput: new Terminal({
+        output: new Terminal({
             cols: 38,
             rows: 10
         }),
-        termProblems: new Terminal({
+        problems: new Terminal({
             cols: 38,
             rows: 10
         }),
 
         init: function () {
-            this.term.open(document.getElementById('terminal'));
-            this.termOutput.open(document.getElementById('output'));
-            this.termProblems.open(document.getElementById('problems'));
+            this.terminal.open(document.getElementById('terminal'));
+            this.output.open(document.getElementById('output'));
+            this.problems.open(document.getElementById('problems'));
 
-            this.term.write('Hello from Terminal');
-            this.termOutput.write('Hello from Output');
-            this.termProblems.write('Hello from Problems');
+            this.terminal.write('Hello from Terminal');
+            this.output.write('Hello from Output');
+            this.problems.write('Hello from Problems');
         },
 
         detach: function () {
             document.getElementById('terminalOverlay').appendChild(document.getElementById(this.tab))
+            this[this.tab].resize(50, 30);
+
         },
 
         attach: function () {
+            this[this.tab].resize(38, 10);
             document.getElementById('terminalHarbor').appendChild(document.getElementById(this.tab))
         }
     }
@@ -72,8 +75,13 @@ export function userProfileComponent() {
 
         smodal: false,
 
-        histogram: () => {
+        histogram: function () {
             document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
+        },
+
+        login: function() {
+            window.zilPay.wallet.connect();
+            this.smodal =! this.smodal;
         }
 
     }

@@ -12,3 +12,5 @@ window.optionsComponent = optionsComponent;
 window.addEventListener('load', function () {
     setTimeout(() => document.querySelector('#pageloader').classList.remove("is-active"), 1500);
 });
+
+
