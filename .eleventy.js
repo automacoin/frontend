@@ -5,7 +5,7 @@ const isDev = process.env.APP_ENV === "development";
 
 const manifestPath = path.resolve(__dirname, "dist", "manifest.json");
 const manifest = isDev ? {
-  "main.css": "/assets/css/bundle.css",
+  "main.css": "assets/css/bundle.css",
   "main.js": "assets/js/bundle.js",
   "assets/favicon.png": "assets/favicon.png",
 } : JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf8" }));
@@ -42,7 +42,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets/public": "assets" });
 
-  eleventyConfig.setBrowserSyncConfig({ files: ["src/includes/*.njk"] });
+  eleventyConfig.setBrowserSyncConfig({ files: ["src/includes/*.njk", "dist/assets/**/*"] });
 
   return {
     dir: {

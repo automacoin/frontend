@@ -43,7 +43,7 @@ module.exports = {
             banner: 'Copyright (c) 2020 AutomaCoin'
         }),
         new MiniCssExtractPlugin({
-            filename: `/assets/css/${baseFilename}.css`,
+            filename: `assets/css/${baseFilename}.css`,
         }),
         new PurgecssPlugin({
             paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),

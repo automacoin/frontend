@@ -72,18 +72,23 @@ export function userProfileComponent() {
     return {
 
         onpic: false,
-
+        isDanger: false,
         smodal: false,
 
         histogram: function () {
             document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
-        login: function() {
-            window.zilPay.wallet.connect();
-            this.smodal =! this.smodal;
+        login: async function () {
+            if (typeof window.zilPay !== 'undefined') {
+                this.smodal = !this.smodal;
+                await window.zilPay.wallet.connect();
+                window.zilPay.wallet.sign('I am signing my one-time nonce: 2222')
+            } else {
+                this.isDanger = true;
+                return;
+            }
         }
-
     }
 }
 

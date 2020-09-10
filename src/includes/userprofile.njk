@@ -1,7 +1,7 @@
 <div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
     <div class="media">
         <div class="media-left">
-            <figure class="image is-96x96" @mouseover="onpic=true" @mouseout="onpic=false" @click="smodal =! smodal">
+            <figure class="image is-64x64" @mouseover="onpic=true" @mouseout="onpic=false" @click="smodal =! smodal">
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
             </figure>
         </div>
@@ -18,19 +18,14 @@
         <div class="modal-card automacoin-modal">
             <header class="modal-card-head">
                 <p class="modal-card-title"></p>
-                <button class="delete" aria-label="close" @click="smodal =! smodal"></button>
+                <button class="delete" aria-label="close" @click="smodal =! smodal;isDanger =!isDanger"></button>
             </header>
             <section class="modal-card-body">
 
                 <button class="button is-info is-large is-fullwidth is-automacoin-zilpay" @click="login()">
                     <strong>Login with ZilPay</strong>
                 </button>
-
-                <div class="is-divider" data-content="OR"></div>
-
-                <button class="button is-success is-large is-fullwidth" @click="smodal =! smodal">
-                    <strong>Sign up</strong>
-                </button>
+                <p class="help is-danger" x-show="isDanger">ZilPay has not been detected, please enable it then refresh.</p>
             </section>
             <footer class="modal-card-foot"></footer>
         </div>
