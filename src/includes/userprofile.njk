@@ -1,9 +1,22 @@
 <div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
     <div class="media">
         <div class="media-left">
-            <figure class="image is-64x64" @mouseover="onpic=true" @mouseout="onpic=false" @click="smodal =! smodal">
-                <img src="https://bulma.io/images/placeholders/64x64.png" alt="Placeholder image">
-            </figure>
+
+            <div class="engine" @click="smodal =! smodal">
+                <div class="power-switch">
+                    <input type="checkbox"/>
+                    <div class="btn">
+                        <svg class="power-off" @click="login()">
+                            <line class="line" x1="75" y1="34" x2="75" y2="58"/>
+                            <circle class="circle" cx="75" cy="80" r="35"/>
+                        </svg>
+                        <svg class="power-on">
+                            <line class="line" x1="75" y1="34" x2="75" y2="58"/>
+                            <circle class="circle" cx="75" cy="80" r="35"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="media-content">
             <p class="title is-4" :class="{ 'has-text-info': onpic === true }">Alessio Proietti</p>
@@ -11,8 +24,8 @@
         </div>
     </div>
 
-        <div class="mt-5" id="histogram"></div>
-  
+    <div class="mt-5" id="histogram"></div>
+
     <div class="modal" :class="{ 'is-active': smodal === true }">
         <div class="modal-background"></div>
         <div class="modal-card automacoin-modal">
@@ -23,7 +36,7 @@
             <section class="modal-card-body">
                 <button class="button is-info is-large is-fullwidth is-automacoin-zilpay" @click="login()">
                     <img src="assets/images/zilpay.svg" alt="ZilPay logo " width="50" height="50">
-                    <strong class="ml-4" >Continue with ZilPay</strong>
+                    <strong class="ml-4">Continue with ZilPay</strong>
                 </button>
                 <!--<p class="help is-danger" x-show="isDanger">ZilPay has not been detected, please enable it then refresh.</p>-->
             </section>

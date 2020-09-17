@@ -85,7 +85,7 @@ export function userProfileComponent() {
                 this.smodal = !this.smodal;
                 await window.zilPay.wallet.connect();
 
-                const { signature, message, publicKey } = await window.zilPay.wallet.sign('test'); // Sign mesg via ZilPay.
+                const { signature, message, publicKey } = await window.zilPay.wallet.sign('test');
                 console.log(signature, message, publicKey);
 
             } else {
