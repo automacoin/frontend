@@ -27,6 +27,7 @@ export function ultimateQuestion() {
     return 43;
 }
 
+/* Components */
 export function dashboardComponent() {
     return {
         expand: false,
@@ -83,7 +84,10 @@ export function userProfileComponent() {
             if (typeof window.zilPay !== 'undefined') {
                 this.smodal = !this.smodal;
                 await window.zilPay.wallet.connect();
-                window.zilPay.wallet.sign('I am signing my one-time nonce: 2222')
+
+                const { signature, message, publicKey } = await window.zilPay.wallet.sign('test'); // Sign mesg via ZilPay.
+                console.log(signature, message, publicKey);
+
             } else {
                 this.isDanger = true;
                 return;
