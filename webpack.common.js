@@ -4,11 +4,6 @@ const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
-
-const PATHS = {
-    src: path.join(__dirname, 'src')
-}
 
 const isDev = process.env.APP_ENV === 'development';
 
@@ -44,9 +39,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: `assets/css/${baseFilename}.css`,
-        }),
-        new PurgecssPlugin({
-            paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
         }),
         new FaviconsWebpackPlugin({
             logo: './src/logo.png',

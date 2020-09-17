@@ -11,7 +11,7 @@
         </div>
     </div>
 
-        <div class="mt-6" style="margin-top: 3%" id="histogram"></div>
+        <div class="mt-5" id="histogram"></div>
   
     <div class="modal" :class="{ 'is-active': smodal === true }">
         <div class="modal-background"></div>
@@ -22,7 +22,8 @@
             </header>
             <section class="modal-card-body">
                 <button class="button is-info is-large is-fullwidth is-automacoin-zilpay" @click="login()">
-                    <strong>Login with ZilPay</strong>
+                    <img src="assets/images/zilpay.svg" alt="ZilPay logo " width="50" height="50">
+                    <strong class="ml-4" >Continue with ZilPay</strong>
                 </button>
                 <!--<p class="help is-danger" x-show="isDanger">ZilPay has not been detected, please enable it then refresh.</p>-->
             </section>
