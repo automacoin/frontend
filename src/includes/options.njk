@@ -6,6 +6,12 @@
             <a :class="{ 'is-active': tab === 'sysmonitor' }" @click="tab = 'sysmonitor'">System Monitor</a>
         </p>
         <a class="panel-block is-active">
+            <div x-show="$store.wallet.logged == 'true' && tab === 'sysmonitor'">
+                <span class="panel-icon">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    FANCY STATISTICS
+                </span>
+            </div>
             <div x-show="$store.wallet.logged == 'true' && tab === 'console'" class="field is-grouped">
                 <p class="control">
                     <button disabled="disabled" class="button is-success is-rounded">
