@@ -2,9 +2,9 @@
     <div class="media">
         <div class="media-left">
 
-            <div class="engine" @click="smodal =! smodal">
+            <div class="engine">
                 <div class="power-switch">
-                    <input type="checkbox"/>
+                    <input  @click="smodal =! smodal" x-bind:disabled = "$store.wallet.logged == 'true'" type="checkbox" x-model="isUnlocked"/>
                     <div class="btn">
                         <svg class="power-off" @click="login()">
                             <line class="line" x1="75" y1="34" x2="75" y2="58"/>
@@ -19,8 +19,8 @@
             </div>
         </div>
         <div class="media-content">
-            <p class="title is-4" :class="{ 'has-text-info': onpic === true }">Alessio Proietti</p>
-            <p class="subtitle is-6" :class="{ 'has-text-info': onpic === true }">@flexios</p>
+            <p class="title is-4" :class="{ 'has-text-info': onpic === true }">Wallet Address:</p>
+            <p class="subtitle is-6" :class="{ 'has-text-info': onpic === true }"></p>
         </div>
     </div>
 
@@ -31,14 +31,13 @@
         <div class="modal-card automacoin-modal">
             <header class="modal-card-head">
                 <p class="modal-card-title"></p>
-                <button class="delete" aria-label="close" @click="smodal =! smodal;isDanger =!isDanger"></button>
+                <button class="delete" aria-label="close" @click="smodal =! smodal;isUnlocked = false"></button>
             </header>
             <section class="modal-card-body">
                 <button class="button is-info is-large is-fullwidth is-automacoin-zilpay" @click="login()">
                     <img src="assets/images/zilpay.svg" alt="ZilPay logo " width="50" height="50">
                     <strong class="ml-4">Continue with ZilPay</strong>
                 </button>
-                <!--<p class="help is-danger" x-show="isDanger">ZilPay has not been detected, please enable it then refresh.</p>-->
             </section>
             <footer class="modal-card-foot"></footer>
         </div>

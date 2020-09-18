@@ -1,5 +1,6 @@
 /* Copyright (c) 2020 AutomaCoin*/
 
+import './app/store';
 import 'alpinejs';
 import { dashboardComponent, userProfileComponent, optionsComponent } from './app/app';
 

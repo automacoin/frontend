@@ -32,7 +32,7 @@ export function dashboardComponent() {
     return {
         expand: false,
         tab: "nodes",
-        title: "Your Dashboard",
+        title: "Dashboard",
         terminal: new Terminal({
             cols: 38,
             rows: 10
@@ -51,9 +51,9 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.write('Hello from Terminal');
-            this.output.write('Hello from Output');
-            this.problems.write('Hello from Problems');
+            this.terminal.write('$ Hello from Terminal. Please Turn On the client.');
+            this.output.write('$ Hello from Output. Please Turn On the client.');
+            this.problems.write('$ Hello from Problems. Please Turn On the client.');
         },
 
         detach: function () {
@@ -73,7 +73,7 @@ export function userProfileComponent() {
     return {
 
         onpic: false,
-        isDanger: false,
+        isUnlocked: window.loggedIn,
         smodal: false,
 
         histogram: function () {
@@ -81,15 +81,22 @@ export function userProfileComponent() {
         },
 
         login: async function () {
+            Spruce.store('wallet').logged = 'true'
+
             if (typeof window.zilPay !== 'undefined') {
                 this.smodal = !this.smodal;
-                await window.zilPay.wallet.connect();
+                const isConnect = await window.zilPay.wallet.connect();
 
-                const { signature, message, publicKey } = await window.zilPay.wallet.sign('test');
-                console.log(signature, message, publicKey);
+                console.log('test')
+                if (!window.zilPay.wallet.isEnable) {
+                    alert('not connected')
+                }
+
+                //const { signature, message, publicKey } = await window.zilPay.wallet.sign('test');
+                //console.log(signature, message, publicKey);
 
             } else {
-                this.isDanger = true;
+                this.isUnlocked = false;
                 return;
             }
         }
@@ -99,6 +106,8 @@ export function userProfileComponent() {
 export function optionsComponent() {
     return {
         spinner: null,
+
+        tab: 'console',
 
         fetching: false,
 
@@ -111,7 +120,7 @@ export function optionsComponent() {
                 this.spinner.stop();
                 this.spinner = null;
                 this.fetching = false;
-            }, 5000)
+            }, 3500)
         }
     }
 }
