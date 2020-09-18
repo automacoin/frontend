@@ -51,9 +51,9 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.write('$ Hello from Terminal. Please Turn On the client.');
-            this.output.write('$ Hello from Output. Please Turn On the client.');
-            this.problems.write('$ Hello from Problems. Please Turn On the client.');
+            this.terminal.write('$ Hello from Terminal. Please Turn On.');
+            this.output.write('$ Hello from Output. Please Turn On.');
+            this.problems.write('$ Hello from Problems. Please Turn On.');
         },
 
         detach: function () {
@@ -75,28 +75,20 @@ export function userProfileComponent() {
         onpic: false,
         isUnlocked: window.loggedIn,
         smodal: false,
+        logged: Spruce.store('wallet').logged === 'true'? true: false,
 
         histogram: function () {
+
+            console.log(this.logged,Spruce.store('wallet'), Spruce.store('wallet').account)
             document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
         login: async function () {
-            Spruce.store('wallet').logged = 'true'
 
             if (typeof window.zilPay !== 'undefined') {
                 this.smodal = !this.smodal;
-                const isConnect = await window.zilPay.wallet.connect();
-
-                console.log('test')
-                if (!window.zilPay.wallet.isEnable) {
-                    alert('not connected')
-                }
-
-                //const { signature, message, publicKey } = await window.zilPay.wallet.sign('test');
-                //console.log(signature, message, publicKey);
-
+                await window.zilPay.wallet.connect();
             } else {
-                this.isUnlocked = false;
                 return;
             }
         }

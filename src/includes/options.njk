@@ -1,37 +1,34 @@
-<div x-data="optionsComponent()" class="tile is-child box">
-    <div class="container">
-        <div class="p-6 content has-text-centered">
-            <p x-show="$store.wallet.logged == 'false'">Please Turn On the system to start interacting with AutomaCoin network.</p>
-            <nav x-show="$store.wallet.logged == 'true'" class="panel" id="console">
-                <p class="panel-tabs">
-                    <a :class="{ 'is-active': tab === 'console' }" @click="tab = 'console'">Console</a>
-                    <a :class="{ 'is-active': tab === 'sysmonitor' }" @click="tab = 'sysmonitor'">System Monitor</a>
+<div x-data="optionsComponent()" :class="{ 'box': $store.wallet.logged !== 'true' }" class="tile is-child">
+    <p class=" has-text-centered " x-show="$store.wallet.logged != 'true'">Please Turn On the system to start interacting with AutomaCoin network.</p>
+    <nav x-show="$store.wallet.logged == 'true'" class="panel" id="console">
+        <p class="panel-tabs">
+            <a :class="{ 'is-active': tab === 'console' }" @click="tab = 'console'">Console</a>
+            <a :class="{ 'is-active': tab === 'sysmonitor' }" @click="tab = 'sysmonitor'">System Monitor</a>
+        </p>
+        <a class="panel-block is-active">
+            <div x-show="$store.wallet.logged == 'true' && tab === 'console'" class="field is-grouped">
+                <p class="control">
+                    <button disabled="disabled" class="button is-success is-rounded">
+                        Start
+                    </button>
                 </p>
-                <div x-show="$store.wallet.logged == 'true' && tab === 'console'" class="field is-grouped">
-                    <p class="control">
-                        <button disabled="disabled" class="button is-success is-rounded">
-                            Start
-                        </button>
-                    </p>
-                    <p class="control">
-                        <button @click="fetch()" x-bind:disabled="fetching" class="button is-warning is-rounded">
-                            Fetch
-                        </button>
-                    </p>
-                    <p class="control">
-                        <button disabled="disabled" class="button is-danger  is-rounded">
-                            Cancel
-                        </button>
-                    </p>
-                </div>
-                <div x-show="$store.wallet.logged == 'true'  && tab === 'console'" class="field is-grouped">
-                    <p class="control">
-                        <input id="switchGPU" type="checkbox" name="switchGPU" class="switch is-rounded is-info" checked="checked">
-                        <label for="switchGPU">Control GPU</label>
-                    </p>
-                </div>
-                <div id="spinner"></div>
-            </nav>
-        </div>
-    </div>
+                <p class="control">
+                    <button @click="fetch()" x-bind:disabled="fetching" class="button is-warning is-rounded">
+                        Fetch
+                    </button>
+                </p>
+                <p class="control">
+                    <button disabled="disabled" class="button is-danger  is-rounded">
+                        Cancel
+                    </button>
+                </p>
+                <p class="control">
+                    <input id="switchGPU" type="checkbox" name="switchGPU" class="switch is-rounded is-info" checked="checked">
+                    <label for="switchGPU">Control GPU</label>
+                </p>
+            </div>
+            <div id="spinner"></div>
+        </a>
+    </nav>
+
 </div>

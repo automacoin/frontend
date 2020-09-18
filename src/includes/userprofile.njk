@@ -4,9 +4,9 @@
 
             <div class="engine">
                 <div class="power-switch">
-                    <input  @click="smodal =! smodal" x-bind:disabled = "$store.wallet.logged == 'true'" type="checkbox" x-model="isUnlocked"/>
+                    <input  id="poweron" @click="smodal =! smodal" type="checkbox" x-bind:disabled = "logged" x-bind:checked="logged" /> <!--isUnlocked || -->
                     <div class="btn">
-                        <svg class="power-off" @click="login()">
+                        <svg class="power-off">
                             <line class="line" x1="75" y1="34" x2="75" y2="58"/>
                             <circle class="circle" cx="75" cy="80" r="35"/>
                         </svg>
@@ -19,8 +19,8 @@
             </div>
         </div>
         <div class="media-content">
-            <p class="title is-4" :class="{ 'has-text-info': onpic === true }">Wallet Address:</p>
-            <p class="subtitle is-6" :class="{ 'has-text-info': onpic === true }"></p>
+            <p class="title is-4">Wallet Address:</p>
+            <p class="subtitle is-6" x-text="$store.wallet.account"></p>
         </div>
     </div>
 
@@ -31,7 +31,7 @@
         <div class="modal-card automacoin-modal">
             <header class="modal-card-head">
                 <p class="modal-card-title"></p>
-                <button class="delete" aria-label="close" @click="smodal =! smodal;isUnlocked = false"></button>
+                <button class="delete" aria-label="close" @click="smodal =! smodal"></button>
             </header>
             <section class="modal-card-body">
                 <button class="button is-info is-large is-fullwidth is-automacoin-zilpay" @click="login()">

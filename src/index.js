@@ -14,4 +14,6 @@ window.addEventListener('load', function () {
     setTimeout(() => document.querySelector('#pageloader').classList.remove("is-active"), 1500);
 });
 
-
+document.querySelector("#poweron").addEventListener("click", function(event) {
+    event.preventDefault();
+}, false);
