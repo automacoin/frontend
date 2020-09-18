@@ -75,11 +75,11 @@ export function userProfileComponent() {
         onpic: false,
         isUnlocked: window.loggedIn,
         smodal: false,
-        logged: Spruce.store('wallet').logged === 'true'? true: false,
+        logged: Spruce.store('wallet').logged === 'true' ? true : false,
 
         histogram: function () {
 
-            console.log(this.logged,Spruce.store('wallet'), Spruce.store('wallet').account)
+            console.log(this.logged, Spruce.store('wallet'), Spruce.store('wallet').account)
             document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
@@ -87,7 +87,8 @@ export function userProfileComponent() {
 
             if (typeof window.zilPay !== 'undefined') {
                 this.smodal = !this.smodal;
-                await window.zilPay.wallet.connect();
+                const isConnect = await window.zilPay.wallet.connect();
+
             } else {
                 return;
             }
