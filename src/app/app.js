@@ -75,11 +75,11 @@ export function userProfileComponent() {
         onpic: false,
         isUnlocked: window.loggedIn,
         smodal: false,
-        logged: Spruce.store('wallet').logged === 'true' ? true : false,
+        logged: Spruce.store('wallet').logged,
 
         histogram: function () {
 
-            console.log(this.logged, Spruce.store('wallet'), Spruce.store('wallet').account)
+            console.log('logged: ', this.logged, Spruce.store('wallet'), Spruce.store('wallet').account)
             document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
@@ -89,6 +89,15 @@ export function userProfileComponent() {
                 this.smodal = !this.smodal;
                 const isConnect = await window.zilPay.wallet.connect();
 
+                Spruce.store('wallet').logged = (window.zilPay.wallet.isEnable && window.zilPay.wallet.isConnect).toString();
+                this.logged = Spruce.store('wallet').logged 
+                console.log(this.logged)
+                Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+
+                console.log(window.zilPay.wallet, Spruce.store('wallet'), Spruce.store('wallet').account)
+                if (!window.zilPay.wallet.isEnable) {
+                    const { signature, message, publicKey } = await window.zilPay.wallet.sign('hello from AutomaCoin!');
+                }
             } else {
                 return;
             }
