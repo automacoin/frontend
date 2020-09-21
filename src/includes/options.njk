@@ -1,21 +1,21 @@
-<div x-data="optionsComponent()" :class="{ 'box': $store.wallet.logged !== 'true' }" class="tile is-child">
-    <p class=" has-text-centered " x-show="$store.wallet.logged != 'true'">Please Turn On the system to start interacting with AutomaCoin network.</p>
-    <nav x-show="$store.wallet.logged == 'true'" class="panel" id="console">
+<div x-data="optionsComponent()" class="box tile is-child">
+    <p class=" has-text-centered " x-show="$store.wallet.logged !== 'true'">Please Turn On the system to start interacting with AutomaCoin network.</p>
+    <nav x-show="$store.wallet.logged === 'true'" class="panel" id="console">
         <p class="panel-tabs">
             <a :class="{ 'is-active': tab === 'console' }" @click="tab = 'console'">Console</a>
             <a :class="{ 'is-active': tab === 'sysmonitor' }" @click="tab = 'sysmonitor'">System Monitor</a>
         </p>
         <a class="panel-block is-active">
-            <div x-show="$store.wallet.logged == 'true' && tab === 'sysmonitor'">
+            <div x-show="$store.wallet.logged === 'true' && tab === 'sysmonitor'">
                 <span class="panel-icon">
                     <i class="fas fa-book" aria-hidden="true"></i>
                     FANCY STATISTICS
                 </span>
             </div>
-            <div x-show="$store.wallet.logged == 'true' && tab === 'console'" class="field is-grouped">
+            <div x-show="$store.wallet.logged === 'true' && tab === 'console'" class="field is-grouped">
                 <p class="control">
                     <button disabled="disabled" class="button is-success is-rounded">
-                        Start
+                        Compute
                     </button>
                 </p>
                 <p class="control">

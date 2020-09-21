@@ -15,6 +15,7 @@ window.addEventListener('load', function () {
     }, 1000);
 });
 
+
 /* These are all components of the application */
 window.dashboardComponent = dashboardComponent;
 window.userProfileComponent = userProfileComponent;
