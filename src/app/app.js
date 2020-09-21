@@ -31,22 +31,23 @@ export function ultimateQuestion() {
 export function dashboardComponent() {
     return {
         expand: false,
-        tab: "nodes",
+        tab: "coin",
         title: "Dashboard",
         terminal: new Terminal({
-            cols: 38,
+            cols: 32,
             rows: 10
         }),
         output: new Terminal({
-            cols: 38,
+            cols: 32,
             rows: 10
         }),
         problems: new Terminal({
-            cols: 38,
+            cols: 32,
             rows: 10
         }),
 
         init: function () {
+
             this.terminal.open(document.getElementById('terminal'));
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
@@ -83,6 +84,7 @@ export function userProfileComponent() {
         },
 
         login: async function () {
+            cancelAnimationFrame( window.id );
 
             if (typeof window.zilPay !== 'undefined') {
 
