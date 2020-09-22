@@ -12,14 +12,11 @@ This is the documentation of the Web Client:
 
 ## How It appers now (!DEPRECATED VERSION!)
 
+Before Login
 ![Client Automacoin Screen](./documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
 
+After Login
 ![Client Automacoin Screen2](./documentation/screenshot2.jpeg?raw=true "Client Automacoin Screen2")
-
-![Client Automacoin Screen3](./documentation/screenshot3.jpeg?raw=true "Client Automacoin Screen3")
-
-![Client Automacoin Screen4](./documentation/screenshot4.jpeg?raw=true "Client Automacoin Screen4") 
-
 
 ## References
 
