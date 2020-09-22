@@ -57,7 +57,7 @@ const metalness = 0.5;
 const roughness = 0.2;
 
 
-var geometry = new THREE.CylinderGeometry(7, 7, .8 , 100);
+var geometry = new THREE.CylinderGeometry(7, 7, .6 , 100);
 
 var materials = [
     new THREE.MeshStandardMaterial({
@@ -83,15 +83,15 @@ var materials = [
 var cylinder = new THREE.Mesh(geometry, materials);
 scene.add(cylinder);
 
-camera.position.z = 20;
+camera.position.z = 25;
 
 var id;
 var animate = function () {
     id = requestAnimationFrame(animate);
 
 
-    cylinder.rotation.y += 0.01;
-    cylinder.rotation.x += 0.01;
+    cylinder.rotation.y += 0.0095;
+    cylinder.rotation.x += 0.0065;
 
     renderer.render(scene, camera);
 };
