@@ -10,7 +10,7 @@ This is the documentation of the Web Client:
 * [Manual](./documentation/manual-index.md)
 * [Architecture](./documentation/architecture-index.md)
 
-## How It appers now (!DEPRECATED VERSION!)
+## How It appers now
 
 Before Login
 ![Client Automacoin Screen](./documentation/screenshot.jpeg?raw=true "Client Automacoin Screen")
