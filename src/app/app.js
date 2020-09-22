@@ -3,7 +3,8 @@
 import * as d3 from "d3";
 import { Terminal } from "xterm";
 import { Spinner } from "spin.js";
-import { SPINNEROPTS } from "../config/config"
+import { SPINNEROPTS } from "../config/config";
+import { toast } from 'bulma-toast';
 
 function barChart(data) {
     const div = d3.create("div")
@@ -59,12 +60,12 @@ export function dashboardComponent() {
 
         detach: function () {
             document.getElementById('terminalOverlay').appendChild(document.getElementById(this.tab))
-            this[this.tab].resize(50, 30);
+            this[this.tab].resize(80, 30);
 
         },
 
         attach: function () {
-            this[this.tab].resize(38, 10);
+            this[this.tab].resize(32, 10);
             document.getElementById('terminalHarbor').appendChild(document.getElementById(this.tab))
         }
     }
@@ -80,11 +81,11 @@ export function userProfileComponent() {
         histogram: function () {
 
             console.log('logged: ', this.logged, Spruce.store('wallet'), Spruce.store('wallet').account)
-            document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
+            // document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
         login: async function () {
-            cancelAnimationFrame( window.id );
+            cancelAnimationFrame(window.id);
 
             if (typeof window.zilPay !== 'undefined') {
 
@@ -93,6 +94,23 @@ export function userProfileComponent() {
                     this.logged = Spruce.store('wallet').logged
                     console.log(this.logged)
                     Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+
+                    toast({
+                        message: "ENGINE STARTED",
+                        type: "is-danger",
+                        duration: 2500,
+                        dismissible: true,
+                        animate: { in: "fadeIn", out: "fadeOut" }
+                    });
+
+                    toast({
+                        message: "WELCOME ON BOARD!",
+                        type: "is-success",
+                        position: "top-left",
+                        duration: 2500,
+                        dismissible: true,
+                        animate: { in: "fadeIn", out: "fadeOut" }
+                    });
 
                     console.log(out, window.zilPay.wallet, Spruce.store('wallet'), Spruce.store('wallet').account);
                 });

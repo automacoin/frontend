@@ -1898,6 +1898,11 @@ alpinejs@^2.5, alpinejs@^2.6.0:
   resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-2.7.0.tgz#adcdb8da9b7d99bbcc020fd4fa058b78ec283bba"
   integrity sha512-vz4Qu4p1830yfPTvhB8da84zIePoe6PGeR50z68gB/EAH5Ba4GeqixV6kuVDEBAv5yzHhUpTrESTDNBtBVpjmg==
 
+animate.css@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
+
 ansi-colors@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
@@ -2656,6 +2661,11 @@ bulma-switch@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-2.0.0.tgz#7a187cd1bb8073e9a542478d936b89315f1ffcd8"
   integrity sha512-myD38zeUfjmdduq+pXabhJEe3x2hQP48l/OI+Y0fO3HdDynZUY/VJygucvEAJKRjr4HxD5DnEm4yx+oDOBXpAA==
+
+bulma-toast@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/bulma-toast/-/bulma-toast-2.0.3.tgz#925e8d35af9829eed8b8b5d64a57cf6164bba06b"
+  integrity sha512-zGsu+ObMXSky7+e+OZACJiNznhRHm87He430M2cFQtWE+dsJcBJWMD22twIlVTl7G8ySMLcsUh1A908eaxDk/Q==
 
 bulma@^0.9.0:
   version "0.9.0"

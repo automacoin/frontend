@@ -23,10 +23,10 @@ window.optionsComponent = optionsComponent;
 
 var scene = new THREE.Scene();
 //scene.background = new THREE.Color(0xF39DAE);
-var camera = new THREE.PerspectiveCamera(40, 310 / 200, 1, 1000);
+var camera = new THREE.PerspectiveCamera(40, 310 / 220, 1, 1000);
 
 var renderer = new THREE.WebGLRenderer({ alpha: true, canvas: artifactCanvas });
-renderer.setSize(310, 200);
+renderer.setSize(310, 220);
 
 // Adding ambient lighting
 scene.add(new THREE.AmbientLight(0xffffff, 1));
@@ -53,8 +53,8 @@ textureCirc.wrapS = THREE.RepeatWrapping;//repeat texture horizontally
 textureCirc.repeat.set(30, 0);//repeat 20x
 const textureHeads = new THREE.TextureLoader().load("assets/images/goldcoin.png");
 const textureTails = new THREE.TextureLoader().load("assets/images/silvercoin.png");
-const metalness = 0.5;
-const roughness = 0.2;
+const metalness = 0.45;
+const roughness = 0.65;
 
 
 var geometry = new THREE.CylinderGeometry(7, 7, .6 , 100);

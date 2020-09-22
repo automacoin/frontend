@@ -40,10 +40,12 @@
   "dependencies": {
     "@ryangjchandler/spruce": "^1.1.1",
     "alpinejs": "^2.6.0",
+    "animate.css": "^4.1.1",
     "babel-jest": "^26.3.0",
     "bulma-divider": "^0.2.0",
     "bulma-pageloader": "^0.3.0",
     "bulma-switch": "^2.0.0",
+    "bulma-toast": "^2.0.3",
     "d3": "^6.1.1",
     "gpu.js": "^2.10.0",
     "grumle-turing": "^1.0.3",
