@@ -90,7 +90,7 @@ var animate = function () {
     id = requestAnimationFrame(animate);
 
 
-    cylinder.rotation.y += 0.0095;
+    cylinder.rotation.y += 0.0045;
     cylinder.rotation.x += 0.0065;
 
     renderer.render(scene, camera);
