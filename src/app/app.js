@@ -79,8 +79,6 @@ export function userProfileComponent() {
         smodal: false,
         logged: Spruce.store('wallet').logged === 'true' ? true : false,
         histogram: function () {
-
-            console.log('logged: ', this.logged, Spruce.store('wallet'), Spruce.store('wallet').account)
             // document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
@@ -92,7 +90,6 @@ export function userProfileComponent() {
                 window.zilPay.wallet.connect().then(out => {
                     Spruce.store('wallet').logged = (window.zilPay.wallet.isEnable && window.zilPay.wallet.isConnect).toString();
                     this.logged = Spruce.store('wallet').logged
-                    console.log(this.logged)
                     Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
 
                     toast({
@@ -112,7 +109,7 @@ export function userProfileComponent() {
                         animate: { in: "fadeIn", out: "fadeOut" }
                     });
 
-                    console.log(out, window.zilPay.wallet, Spruce.store('wallet'), Spruce.store('wallet').account);
+                    
                 });
             } else {
                 this.smodal = !this.smodal
@@ -129,16 +126,31 @@ export function optionsComponent() {
 
         fetching: false,
 
-        fetch: function () {
+        init: function () {
+            this.spinner = new Spinner(SPINNEROPTS)
+        },
 
+        fetch: async function () {
             this.fetching = true;
             const target = document.getElementById('spinner');
-            this.spinner = new Spinner(SPINNEROPTS).spin(target);
-            setInterval(() => {
-                this.spinner.stop();
-                this.spinner = null;
-                this.fetching = false;
-            }, 3500)
+            this.spinner.spin(target);
+
+            const response = await harvester.hello();
+
+            this.spinner.stop();
+            this.fetching = false;
+
+            const inputs = response.tm.input;
+            const quadruples = response.tm.quadruples;
+
+            /*const inputs = [3, 2];
+            const quadruples = [
+                [1, 'B', 'R', 2],
+                [2, '1', 'R', 2]
+            ]*/
+
+            await engine.turing(inputs, quadruples);
+
         }
     }
 }

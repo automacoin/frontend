@@ -1,4 +1,4 @@
-<div x-data="optionsComponent()" class="box tile is-child">
+<div x-data="optionsComponent()" x-init="init()" class="box tile is-child">
     <div x-show="$store.wallet.logged !== 'true'">
         <p class=" has-text-centered title is-5">Instructions</p>
         <p>Turn On the system to start interacting with AutomaCoin network.

@@ -3,7 +3,11 @@
 import './app/store';
 import 'alpinejs';
 import * as THREE from 'three';
+import engine from 'workerize-loader!./app/engineTM'
+import harvester from 'workerize-loader!./app/harvester'
 import { dashboardComponent, userProfileComponent, optionsComponent } from './app/app';
+
+
 
 document.querySelector("#poweron").addEventListener("click", function (event) {
     event.preventDefault();
@@ -16,13 +20,19 @@ window.addEventListener('load', function () {
     }, 1000);
 });
 
+/* instantiate all worker threads here and expose them as objects */
+window.harvester = harvester();
+window.engine = engine();
+
 /* These are all components of the application */
 window.dashboardComponent = dashboardComponent;
 window.userProfileComponent = userProfileComponent;
 window.optionsComponent = optionsComponent;
 
+/* Coin animation */
+// it will be moved in a separate file
+
 var scene = new THREE.Scene();
-//scene.background = new THREE.Color(0xF39DAE);
 var camera = new THREE.PerspectiveCamera(40, 310 / 220, 1, 1000);
 
 var renderer = new THREE.WebGLRenderer({ alpha: true, canvas: artifactCanvas });
@@ -90,8 +100,8 @@ var animate = function () {
     id = requestAnimationFrame(animate);
 
 
-    cylinder.rotation.y += 0.0045;
-    cylinder.rotation.x += 0.0065;
+    cylinder.rotation.y -= 0.00575;
+    cylinder.rotation.x += 0.00175;
 
     renderer.render(scene, camera);
 };
