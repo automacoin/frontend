@@ -11,11 +11,11 @@ document.querySelector("#poweron").addEventListener("click", function (event) {
     event.preventDefault();
 }, false);
 
-/* Eventually this mocked delay will be deleted. It's a showcase for the PageLoader*/
+/* Delay to create the illusion of initialization */
 window.addEventListener('load', function () {
     setTimeout(() => {
         document.querySelector('#pageloader').classList.remove("is-active")
-    }, 1000);
+    }, 1500);
 });
 
 /* instantiate all worker threads here and expose them as objects */
@@ -27,5 +27,5 @@ window.dashboardComponent = dashboardComponent;
 window.userProfileComponent = userProfileComponent;
 window.optionsComponent = optionsComponent;
 
+/* Initializes the Coin Animation */
 const automaCoin = coin(artifactCanvas);
-console.log(automaCoin);
