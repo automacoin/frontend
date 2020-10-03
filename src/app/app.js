@@ -29,6 +29,7 @@ export function ultimateQuestion() {
 }
 
 /* Components */
+
 export function dashboardComponent() {
     return {
         expand: false,
@@ -135,19 +136,21 @@ export function optionsComponent() {
             const target = document.getElementById('spinner');
             this.spinner.spin(target);
 
-            const response = await harvester.hello();
+            const response = await harvester.harvest(null, null, null, null);
 
+            console.log(response);
             this.spinner.stop();
             this.fetching = false;
 
-            const inputs = response.tm.input;
-            const quadruples = response.tm.quadruples;
+            /*const inputs = response.tm.input;
+            const quadruples = response.tm.quadruples;*/
 
-            /*const inputs = [3, 2];
+            const inputs = [3, 2];
             const quadruples = [
+
                 [1, 'B', 'R', 2],
                 [2, '1', 'R', 2]
-            ]*/
+            ]
 
             await engine.turing(inputs, quadruples);
 
