@@ -22,6 +22,7 @@ window.addEventListener('load', function () {
 window.harvester = harvester();
 window.engine = engine();
 
+
 /* These are all components of the application */
 window.dashboardComponent = dashboardComponent;
 window.userProfileComponent = userProfileComponent;

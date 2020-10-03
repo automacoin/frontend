@@ -20,18 +20,18 @@
             </div>
             <div x-show="$store.wallet.logged === 'true' && tab === 'console'" class="field is-grouped">
                 <p class="control">
-                    <button disabled="disabled" class="button is-success is-rounded">
+                    <button @click="compute()" x-bind:disabled="$store.engine.state !== 'ready' || $store.engine.state === 'fetching'" class="button is-success is-rounded">
                         Compute
                     </button>
                 </p>
                 <p class="control">
-                    <button @click="fetch()" x-bind:disabled="fetching" class="button is-warning is-rounded">
+                    <button @click="fetch()" x-bind:disabled="$store.engine.state === 'ongoing'" class="button is-warning is-rounded">
                         Fetch
                     </button>
                 </p>
                 <p class="control">
-                    <button disabled="disabled" class="button is-danger  is-rounded">
-                        Cancel
+                    <button x-bind:disabled="$store.engine.state !== 'ongoing' && $store.engine.state !== 'fetching'" class="button is-danger  is-rounded">
+                        Abort
                     </button>
                 </p>
                 <p class="control">

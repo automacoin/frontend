@@ -18,13 +18,9 @@ export async function harvest(client, capability, nonce, signature) {
 
     try {
         const response = await fetch(request);
-        await new Promise((ok, ko) => {
-            setInterval(() => ok(1), 1500);
-        })
-
         return await response.json();
     } catch (error) {
-        console.log(error);
+        throw new Error(error)
     }
 }
 

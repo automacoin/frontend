@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 /* Coin animation */
 export function coin(canvas) {
-    const { scene, camera, renderer } = setupScene(40, 310 / 220, 1, 1000, { alpha: true, canvas }, 310, 220, 0xffffff, 1);
+    const { scene, camera, renderer } = setupScene(40, 310 / 232, 1, 1000, { alpha: true, canvas }, 310, 232, 0xffffff, 1);
 
     [[0xff4422, .5, -1, -1, 3], [0x44ff88, .5, 1, 2, 3], [0xdd3311, .5, 0, 3, 2]].forEach(params => pointLight(...params, scene));
 

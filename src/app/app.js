@@ -1,28 +1,10 @@
 /* Copyright (c) 2020 AutomaCoin*/
 
-import * as d3 from "d3";
 import { Terminal } from "xterm";
 import { Spinner } from "spin.js";
 import { SPINNEROPTS } from "../config/config";
 import { toast } from 'bulma-toast';
-
-function barChart(data) {
-    const div = d3.create("div")
-        .style("font", "10px sans-serif")
-        .style("text-align", "right")
-        .style("color", "white");
-
-    div.selectAll("div")
-        .data(data)
-        .join("div")
-        .style("background", "steelblue")
-        .style("padding", "3px")
-        .style("margin", "1px")
-        .style("width", d => `${d * 10}px`)
-        .text(d => d);
-
-    return div.node();
-}
+import PubSub from 'pubsub-js'
 
 export function ultimateQuestion() {
     return 43;
@@ -48,15 +30,40 @@ export function dashboardComponent() {
             rows: 10
         }),
 
+        subscription: function (c) {
+            let that = this;
+            let sub;
+            switch (c) {
+                case 0:
+                    sub = (msg, data) => that.terminal.writeln(`$ ${data}`);
+                    break;
+                case 1:
+                    sub = (msg, data) => that.problems.writeln(`$ ${data}`);
+                    break;
+                case 2:
+                    sub = (msg, data) => that.output.writeln(`$ ${data}`);
+                    break;
+                default:
+                    sub = (msg, data) => console.log(`$ ${data}`);
+            }
+            return sub;
+        },
+
+        token: null,
+
         init: function () {
+
+            this.tokenOutput = PubSub.subscribe('OUTPUT', this.subscription(2));
+            this.tokenTerminal = PubSub.subscribe('TERMINAL', this.subscription(0));
+            this.tokenProblems = PubSub.subscribe('PROBLEMS', this.subscription(1));
 
             this.terminal.open(document.getElementById('terminal'));
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.write('$ Hello from Terminal. Please Turn On.');
-            this.output.write('$ Hello from Output. Please Turn On.');
-            this.problems.write('$ Hello from Problems. Please Turn On.');
+            this.terminal.writeln('$ TERMINAL console is ready.');
+            this.output.writeln('$ OUTPUT console is ready.');
+            this.problems.writeln('$ PROBLEMS console is ready.');
         },
 
         detach: function () {
@@ -80,11 +87,9 @@ export function userProfileComponent() {
         smodal: false,
         logged: Spruce.store('wallet').logged === 'true' ? true : false,
         histogram: function () {
-            // document.querySelector('#histogram').appendChild(barChart([6, 10, 2]));
         },
 
         login: async function () {
-            cancelAnimationFrame(window.id);
 
             if (typeof window.zilPay !== 'undefined') {
 
@@ -94,23 +99,22 @@ export function userProfileComponent() {
                     Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
 
                     toast({
-                        message: "ENGINE STARTED",
+                        message: "Engine Started!",
                         type: "is-danger",
-                        duration: 2500,
+                        duration: 1000,
                         dismissible: true,
                         animate: { in: "fadeIn", out: "fadeOut" }
                     });
 
                     toast({
-                        message: "WELCOME ON BOARD!",
+                        message: "Welcome on board!",
                         type: "is-success",
-                        position: "top-left",
-                        duration: 2500,
+                        duration: 1000,
                         dismissible: true,
                         animate: { in: "fadeIn", out: "fadeOut" }
                     });
 
-                    
+
                 });
             } else {
                 this.smodal = !this.smodal
@@ -120,39 +124,81 @@ export function userProfileComponent() {
 }
 
 export function optionsComponent() {
+
     return {
         spinner: null,
 
         tab: 'console',
 
-        fetching: false,
+        loading: false,
+
+        computing: false,
 
         init: function () {
             this.spinner = new Spinner(SPINNEROPTS)
         },
 
-        fetch: async function () {
-            this.fetching = true;
-            const target = document.getElementById('spinner');
-            this.spinner.spin(target);
-
-            const response = await harvester.harvest(null, null, null, null);
-
-            console.log(response);
+        abort: function () {
+            Spruce.store('engine').state = 'ready';
             this.spinner.stop();
-            this.fetching = false;
+        },
 
-            /*const inputs = response.tm.input;
-            const quadruples = response.tm.quadruples;*/
+        compute: async function () {
+            try {
+                const target = document.getElementById('spinner');
+                this.spinner.spin(target);
+                Spruce.store('engine').state = 'ongoing';
+                PubSub.publish('TERMINAL', 'Starting computation...');
 
-            const inputs = [3, 2];
-            const quadruples = [
+                const inputs = [3, 2];
+                const quadruples = [
 
-                [1, 'B', 'R', 2],
-                [2, '1', 'R', 2]
-            ]
+                    [1, 'B', 'R', 2],
+                    [2, '1', 'R', 2]
+                ]
 
-            await engine.turing(inputs, quadruples);
+                await new Promise((ok, ko) => {
+                    setInterval(() => ok(1), 2000);
+                });
+
+                this.loading = true;
+                PubSub.publish('OUTPUT', `The output of computation is: ${JSON.stringify(await engine.compute(inputs, quadruples))}`);
+                PubSub.publish('TERMINAL', 'Computation is complete.');
+            } catch (error) {
+                PubSub.publish('ERROR', error.message);
+            } finally {
+                Spruce.store('engine').state = 'ready';
+                this.loading = false;
+                this.spinner.stop();
+            }
+        },
+
+        fetch: async function () {
+
+            try {
+                Spruce.store('engine').state = 'fetching';
+                PubSub.publish('TERMINAL', 'Fetching Turing Machines ...');
+                this.loading = true;
+                const target = document.getElementById('spinner');
+                this.spinner.spin(target);
+
+                const response = await harvester.harvest(null, null, null, null);
+                console.log(response);
+            } catch (error) {
+                PubSub.publish('ERROR', error.message);
+            } finally {
+
+                await new Promise((ok, ko) => {
+                    setInterval(() => ok(1), 1500);
+                })
+
+                Spruce.store('engine').state = 'ready';
+                this.spinner.stop();
+                this.loading = false;
+            }
+
+            Spruce.store('engine').state = 'ready';
+            PubSub.publish('TERMINAL', 'Turing Machines loaded in memory, ready to compute.');
 
         }
     }

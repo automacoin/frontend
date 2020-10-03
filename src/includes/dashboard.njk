@@ -5,10 +5,10 @@
         </p>
         <p class="panel-tabs">
             <a :class="{ 'is-active': tab === 'coin' }" @click="tab = 'coin'">Coin</a>
-            <a :class="{ 'is-active': tab === 'nodes' }" @click="tab = 'nodes'">Nodes</a>
             <a :class="{ 'is-active': tab === 'problems' }" @click="tab = 'problems'">Problems</a>
             <a :class="{ 'is-active': tab === 'output' }" @click="tab = 'output'">Output</a>
             <a :class="{ 'is-active': tab === 'terminal' }" @click="tab = 'terminal'">Terminal</a>
+            <a :class="{ 'is-active': tab === 'nodes' }" @click="tab = 'nodes'">Nodes</a>
         </p>
         <div x-show="tab === 'coin'" id="coin">
             <canvas id="artifactCanvas"></canvas>
@@ -31,8 +31,8 @@
             <a class="panel-block is-active">
                 <span class="panel-icon">
                     <i class="fas fa-book" aria-hidden="true"></i>
+                     automacoin.us.node
                 </span>
-                Automacoin.us.node
             </a>
             <a class="panel-block">
                 <span class="panel-icon">
@@ -74,6 +74,9 @@
         <div x-show="!(tab === 'nodes' || tab === 'coin') " class="panel-block">
             <button @click="expand =!expand; detach()" class="button is-info is-outlined is-fullwidth">
                 Expand
+            </button>
+            <button class="button is-success is-outlined is-fullwidth">
+                Clear
             </button>
         </div>
 

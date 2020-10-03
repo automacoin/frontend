@@ -1,9 +1,8 @@
 //computation of turing machines 
 import { TuringMachine, Quadruple } from 'grumle-turing';
 
-export function turing(inputs, table) {
-
-    console.log("hello from Turing thread!");
+export function compute(inputs, table) {
+    
     // Create the quadruples
     const quadruples = [];
     let quadruple;
@@ -18,5 +17,5 @@ export function turing(inputs, table) {
 
     const result = turing.start();
 
-    console.log(result.output, result.tape, result.state);
+    return result;
 }

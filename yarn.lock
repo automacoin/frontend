@@ -2267,11 +2267,6 @@ backo2@1.0.2:
   resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
   integrity sha1-MasayLEpNjRj41s+u2n038+6eUc=
 
-baconjs@^3.0.15:
-  version "3.0.15"
-  resolved "https://registry.yarnpkg.com/baconjs/-/baconjs-3.0.15.tgz#8d605ca6308be64f5cf3195fe9bf5817c0186e9d"
-  integrity sha512-s0fn7zkpYWOYGbOxMJzizKsZXTGIj1dLtXM/LirlWbryjt3ERt4reiIHs9Hb8qyYeOOTb2GCgIU3pemfJPKr0w==
-
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -7909,6 +7904,11 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
+
+pubsub-js@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/pubsub-js/-/pubsub-js-1.9.0.tgz#fa19de437f41221e95b6bd4dc4c745b25b92c0ab"
+  integrity sha512-bBGaOnAdkn3jhZC71mhjNB4mxQAOM99GTh/NoVuf/VXWUuQAZJGWIkEJlkXi0ACdKx3z65u5qilWaE5G4mMQOw==
 
 pug-attrs@^2.0.4:
   version "2.0.4"

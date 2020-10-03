@@ -5,4 +5,9 @@ Spruce.store('wallet', {
     account: window.zilPay?.wallet.defaultAccount?.base16,
 })
 
+//possible states: unready | ready | ongoing
+Spruce.store('engine', {
+    state: 'unready'
+})
+
 export default Spruce 
