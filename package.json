@@ -46,6 +46,7 @@
     "bulma-pageloader": "^0.3.0",
     "bulma-switch": "^2.0.0",
     "bulma-toast": "^2.0.3",
+    "compute-kernel": "https://github.com/automacoin/compute-kernel.git",
     "d3": "^6.1.1",
     "gpu.js": "^2.10.0",
     "grumle-turing": "^1.0.3",

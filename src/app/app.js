@@ -4,7 +4,8 @@ import { Terminal } from "xterm";
 import { Spinner } from "spin.js";
 import { SPINNEROPTS } from "../config/config";
 import { toast } from 'bulma-toast';
-import PubSub from 'pubsub-js'
+import PubSub from 'pubsub-js';
+import { compute } from 'compute-kernel';
 
 export function ultimateQuestion() {
     return 43;
@@ -143,7 +144,7 @@ export function optionsComponent() {
             this.spinner.stop();
         },
 
-        compute: async function () {
+        fire: async function () {
             try {
                 const target = document.getElementById('spinner');
                 this.spinner.spin(target);
@@ -156,6 +157,8 @@ export function optionsComponent() {
                     [1, 'B', 'R', 2],
                     [2, '1', 'R', 2]
                 ]
+
+                compute(2, 2, 20, 4607, 4615);
 
                 await new Promise((ok, ko) => {
                     setInterval(() => ok(1), 2000);
