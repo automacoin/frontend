@@ -14,7 +14,7 @@ document.querySelector("#poweron").addEventListener("click", function (event) {
 /* Delay to create the illusion of initialization */
 window.addEventListener('load', function () {
     setTimeout(() => {
-        document.querySelector('#pageloader').classList.remove("is-active")
+        document.querySelector('#pageloader').classList.add("is-loaded");
     }, 1500);
 });
 
