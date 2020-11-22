@@ -158,7 +158,7 @@ export function optionsComponent() {
                     [2, '1', 'R', 2]
                 ]
 
-                compute(2, 2, 20, 4607, 4615);
+                console.log(compute(2, 2, 20, 4607, 4615));
 
                 await new Promise((ok, ko) => {
                     setInterval(() => ok(1), 2000);
