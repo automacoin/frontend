@@ -1,19 +1,33 @@
 import { WorkAllocationRequest } from './models/workAllocationRequest';
+import { API } from '../config/config';
+import { AccountRequest } from './models/accountRequest';
+import { AccountResponse } from './models/accountResponse';
+import { SubmissionResponse } from './models/submissioneResponse';
 
-let controller;
+/** This module is meant to be run in a separate thread, it roams the AutomaCoin Network fetching resources and submitting results*/
 
-export async function harvest(client, capability, nonce, signature) {
-    controller = new AbortController();
-    const signal = controller.signal;
+export async function account(client, random_nonce, signature) {
+    return new AccountResponse(harvest(API.ACCOUNT, 'get', JSON.stringify(new AccountRequest(client, random_nonce, signature))));
+}
 
-    const request = new Request('https://run.mocky.io/v3/483b1eb7-6d9a-48cc-b1db-7534527b512b',
+export async function allocation(client, capability, nonce, signature) {
+    return new WorkAllocationResponse(harvest(API.WALLOC, 'get', JSON.stringify(new WorkAllocationRequest(client, capability, nonce, signature))));
+}
+
+export async function submit(from, assigned, workload_ID, turing_machines, tapes, nonce, signature) {
+    return new SubmissionResponse(harvest(API.SUBMIT, 'get', JSON.stringify(new SubmissionRequest(from, assigned, workload_ID, turing_machines, tapes, nonce, signature))));
+}
+
+async function harvest(url, method, body) {
+
+    const request = new Request(url,
         {
-            method: "post",
+            method,
             headers: new Headers({
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify(new WorkAllocationRequest(client, capability, nonce, signature)),
-            signal: signal,
+            body,
+            signal: (new AbortController()).signal,
         })
 
     try {

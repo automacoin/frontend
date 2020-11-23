@@ -65,12 +65,12 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.writeln('$ terminal is ready.');
-            this.output.writeln('output is ready.');
-            this.problems.writeln('$ problems is ready.');
+            this.terminal.writeln('$ ready.');
+            this.output.writeln('$ ready.');
+            this.problems.writeln('$ ready.');
         },
 
-        clearBuff: function(buff) {
+        clearBuff: function (buff) {
             this[buff].clear();
         },
 
@@ -107,17 +107,9 @@ export function userProfileComponent() {
                     Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
 
                     toast({
-                        message: "Engine Started!",
-                        type: "is-danger",
-                        duration: 1000,
-                        dismissible: true,
-                        animate: { in: "fadeIn", out: "fadeOut" }
-                    });
-
-                    toast({
                         message: "Welcome on board!",
                         type: "is-success",
-                        duration: 1000,
+                        duration: 1250,
                         dismissible: true,
                         animate: { in: "fadeIn", out: "fadeOut" }
                     });
@@ -158,10 +150,19 @@ export function optionsComponent() {
                 Spruce.store('engine').state = 'ongoing';
                 PubSub.publish('TERMINAL', 'Starting computation...');
 
-                engine.run(2, 2, 2000, 4607, 5615);
+                toast({
+                    message: "Engine Started!",
+                    type: "is-danger",
+                    duration: 1250,
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+
 
                 this.loading = true;
-                PubSub.publish('OUTPUT', `The output of computation is: ${JSON.stringify(await engine.compute(inputs, quadruples))}`);
+                console.log(await engine.run(2, 2, 2000, 4607, 5615));
+
+                PubSub.publish('OUTPUT', `The output of computation is:...`);
                 PubSub.publish('TERMINAL', 'Computation is complete.');
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
@@ -176,20 +177,30 @@ export function optionsComponent() {
 
             try {
                 Spruce.store('engine').state = 'fetching';
+
+                PubSub.publish('TERMINAL', 'Trying to log in if signed ...');
+
+                //harvester.account(client, nonce, signature);
+
                 PubSub.publish('TERMINAL', 'Fetching Turing Machines ...');
+
+                toast({
+                    message: "Fetching new Data...",
+                    type: "is-warning",
+                    duration: 1250,
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
+
                 this.loading = true;
                 const target = document.getElementById('spinner');
                 this.spinner.spin(target);
 
-                const response = await harvester.harvest(null, null, null, null);
-                console.log(response);
+               // const response = await harvester.harvest(null, null, null, null);
+                console.log({});
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
             } finally {
-
-                await new Promise((ok, ko) => {
-                    setInterval(() => ok(1), 1500);
-                })
 
                 Spruce.store('engine').state = 'ready';
                 this.spinner.stop();

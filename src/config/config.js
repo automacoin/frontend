@@ -18,3 +18,25 @@ export const SPINNEROPTS = {
     className: "spinner",
     position: "absolute"
 }
+
+export const MESSAGE = {
+    OUTPUT: {
+
+    },
+
+    PROBLEMS: {
+
+    },
+
+    TERMINAL: {
+
+    }
+}
+
+//'https://run.mocky.io/v3/483b1eb7-6d9a-48cc-b1db-7534527b512b'
+
+export const API = {
+    ACCOUNT:"",
+    WALLOC: "",
+    SUBMIT:"",
+}
