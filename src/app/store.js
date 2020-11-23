@@ -10,4 +10,8 @@ Spruce.store('engine', {
     state: 'unready'
 })
 
+Spruce.store('wallet', {
+    nonce: null
+})
+
 export default Spruce 

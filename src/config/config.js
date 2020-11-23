@@ -11,7 +11,7 @@ export const SPINNEROPTS = {
     direction: 1,
     color: "#1881f2",
     fadeColor: "transparent",
-    top: "19%",  
+    top: "19%",
     left: "60%",
     shadow: "0 0 1px transparent",
     zIndex: 2000000000,
@@ -20,23 +20,20 @@ export const SPINNEROPTS = {
 }
 
 export const MESSAGE = {
-    OUTPUT: {
+    SIGNIN: "signing one-time nonce: ",
 
+    OUTPUT: {
     },
 
     PROBLEMS: {
-
     },
 
     TERMINAL: {
-
     }
 }
 
-//'https://run.mocky.io/v3/483b1eb7-6d9a-48cc-b1db-7534527b512b'
-
 export const API = {
-    ACCOUNT:"",
+    ACCOUNT: "",
     WALLOC: "",
-    SUBMIT:"",
+    SUBMIT: "",
 }
