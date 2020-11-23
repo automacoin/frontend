@@ -5,7 +5,6 @@ import { Spinner } from "spin.js";
 import { SPINNEROPTS } from "../config/config";
 import { toast } from 'bulma-toast';
 import PubSub from 'pubsub-js';
-import { compute } from 'compute-kernel';
 
 export function ultimateQuestion() {
     return 43;
@@ -54,6 +53,10 @@ export function dashboardComponent() {
 
         init: function () {
 
+            Spruce.watch('wallet.logged', logged => {
+                this.tab = 'terminal';
+            });
+
             this.tokenOutput = PubSub.subscribe('OUTPUT', this.subscription(2));
             this.tokenTerminal = PubSub.subscribe('TERMINAL', this.subscription(0));
             this.tokenProblems = PubSub.subscribe('PROBLEMS', this.subscription(1));
@@ -62,9 +65,13 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.writeln('$ TERMINAL console is ready.');
-            this.output.writeln('$ OUTPUT console is ready.');
-            this.problems.writeln('$ PROBLEMS console is ready.');
+            this.terminal.writeln('$ terminal is ready.');
+            this.output.writeln('output is ready.');
+            this.problems.writeln('$ problems is ready.');
+        },
+
+        clearBuff: function(buff) {
+            this[buff].clear();
         },
 
         detach: function () {
@@ -151,18 +158,7 @@ export function optionsComponent() {
                 Spruce.store('engine').state = 'ongoing';
                 PubSub.publish('TERMINAL', 'Starting computation...');
 
-                const inputs = [3, 2];
-                const quadruples = [
-
-                    [1, 'B', 'R', 2],
-                    [2, '1', 'R', 2]
-                ]
-
-                console.log(compute(2, 2, 20, 4607, 4615));
-
-                await new Promise((ok, ko) => {
-                    setInterval(() => ok(1), 2000);
-                });
+                engine.run(2, 2, 2000, 4607, 5615);
 
                 this.loading = true;
                 PubSub.publish('OUTPUT', `The output of computation is: ${JSON.stringify(await engine.compute(inputs, quadruples))}`);

@@ -7,7 +7,7 @@
             <a :class="{ 'is-active': tab === 'coin' }" @click="tab = 'coin'">Coin</a>
             <a :class="{ 'is-active': tab === 'problems' }" @click="tab = 'problems'">Problems</a>
             <a :class="{ 'is-active': tab === 'output' }" @click="tab = 'output'">Output</a>
-            <a :class="{ 'is-active': tab === 'terminal' }" @click="tab = 'terminal'">Terminal</a>
+            <a :class="{ 'is-active': tab === 'terminal'}" @click="tab = 'terminal'">Terminal</a>
             <a :class="{ 'is-active': tab === 'nodes' }" @click="tab = 'nodes'">Nodes</a>
         </p>
         <div x-show="tab === 'coin'" id="coin">
@@ -72,10 +72,10 @@
             </a>
         </div>
         <div x-show="!(tab === 'nodes' || tab === 'coin') " class="panel-block">
-            <button @click="expand =!expand; detach()" class="button is-info is-outlined is-fullwidth">
+            <button @click="expand =!expand; detach()" class="button  is-info is-fullwidth  is-rounded">
                 Expand
             </button>
-            <button class="button is-success is-outlined is-fullwidth">
+            <button @click="clearBuff(tab)" class="button  is-success is-fullwidth  is-rounded">
                 Clear
             </button>
         </div>
