@@ -32,6 +32,11 @@ export const MESSAGE = {
     }
 }
 
+export const TOKEN =  {
+    TURING:"TCS",
+    AUTOMACOIN:"ATC"
+}
+
 export const API = {
     ACCOUNT: "",
     WALLOC: "",

@@ -2,8 +2,9 @@ import Spruce from '@ryangjchandler/spruce'
 
 Spruce.store('wallet', {
     logged: 'false',
-    account: '',
-    nonce: '22'
+    account: 'not connected',
+    nonce: '22',
+    balance:'--',
 })
 
 //possible states: unready | ready | ongoing

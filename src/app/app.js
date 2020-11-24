@@ -109,6 +109,7 @@ export function userProfileComponent() {
 
                         this.logged = true;
                         Spruce.store('wallet').nonce = response.nonce;
+                        Spruce.store('wallet').balance = response.automacoin;
                         Spruce.store('wallet').logged = this.logged.toString();
                         Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
                         console.log(response);
@@ -145,6 +146,8 @@ export function optionsComponent() {
 
         computing: false,
 
+        workunit: null,
+
         init: function () {
             this.spinner = new Spinner(SPINNEROPTS)
         },
@@ -171,10 +174,20 @@ export function optionsComponent() {
 
 
                 this.loading = true;
-                console.log(await engine.run(2, 2, 2000, 4607, 5615));
+
+                //const tapes = await engine.ignite(2, 2, 2000, 4607, 5615);
+
+                const tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
+
+                console.log(tapes);
 
                 PubSub.publish('OUTPUT', `The output of computation is:...`);
                 PubSub.publish('TERMINAL', 'Computation is complete.');
+                PubSub.publish('TERMINAL', 'Submitting signed output to Network.');
+
+                await harvester.dispatch(this.workunit.from, this.workunit.assigned, this.workunit.workload_ID, this.workunit.tm_set, tapes, nonce, await window.zilPay.wallet.sign('TEST'));
+
+                PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
             } finally {
@@ -187,13 +200,16 @@ export function optionsComponent() {
         fetch: async function () {
 
             try {
+                const target = document.getElementById('spinner');
+                this.spinner.spin(target);
+
                 Spruce.store('engine').state = 'fetching';
 
-                PubSub.publish('TERMINAL', 'Trying to log in if signed ...');
-
-                //harvester.account(client, nonce, signature);
-
                 PubSub.publish('TERMINAL', 'Fetching Turing Machines ...');
+
+                const signature = await window.zilPay.wallet.sign('hello');
+
+                this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, signature);
 
                 toast({
                     message: "Fetching new Data...",
@@ -204,11 +220,6 @@ export function optionsComponent() {
                 });
 
                 this.loading = true;
-                const target = document.getElementById('spinner');
-                this.spinner.spin(target);
-
-                // const response = await harvester.harvest(null, null, null, null);
-                console.log({});
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
             } finally {
@@ -219,7 +230,7 @@ export function optionsComponent() {
             }
 
             Spruce.store('engine').state = 'ready';
-            PubSub.publish('TERMINAL', 'Turing Machines loaded in memory, ready to compute.');
+            PubSub.publish('TERMINAL', 'Work unit loaded in memory, ready to compute.');
 
         }
     }
