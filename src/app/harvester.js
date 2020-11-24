@@ -7,7 +7,12 @@ import { SubmissionResponse } from './models/submissioneResponse';
 /** This module is meant to be run in a separate thread, it roams the AutomaCoin Network fetching resources and submitting results*/
 
 export async function account(client, random_nonce, signature) {
-    return new AccountResponse(harvest(API.ACCOUNT, 'get', JSON.stringify(new AccountRequest(client, random_nonce, signature))));
+    return new AccountResponse({
+        client,
+        nonce: random_nonce,
+        automacoin: 0
+    });
+    //return new AccountResponse(harvest(API.ACCOUNT, 'get', JSON.stringify(new AccountRequest(client, random_nonce, signature))));
 }
 
 export async function allocation(client, capability, nonce, signature) {

@@ -2,7 +2,7 @@
 
 import { Terminal } from "xterm";
 import { Spinner } from "spin.js";
-import { SPINNEROPTS } from "../config/config";
+import { SPINNEROPTS, MESSAGE } from "../config/config";
 import { toast } from 'bulma-toast';
 import PubSub from 'pubsub-js';
 
@@ -93,32 +93,43 @@ export function userProfileComponent() {
         onpic: false,
         isUnlocked: window.loggedIn,
         smodal: false,
-        logged: Spruce.store('wallet').logged === 'true' ? true : false,
+        logged: false,
         histogram: function () {
         },
 
         login: async function () {
 
             if (typeof window.zilPay !== 'undefined') {
+                const isConnect = await window.zilPay.wallet.connect();
+                if (isConnect) {
+                    console.log(isConnect);
 
-                window.zilPay.wallet.connect().then(out => {
-                    Spruce.store('wallet').logged = (window.zilPay.wallet.isEnable && window.zilPay.wallet.isConnect).toString();
-                    this.logged = Spruce.store('wallet').logged
-                    Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+                    const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, (await window.zilPay.wallet.sign(MESSAGE.SIGNIN + Spruce.store('wallet').nonce)).signature);
+                    if (response.client) {
 
-                    toast({
-                        message: "Welcome on board!",
-                        type: "is-success",
-                        duration: 1250,
-                        dismissible: true,
-                        animate: { in: "fadeIn", out: "fadeOut" }
-                    });
+                        this.logged = true;
+                        Spruce.store('wallet').nonce = response.nonce;
+                        Spruce.store('wallet').logged = this.logged.toString();
+                        Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+                        console.log(response);
+                    }
+                } else {
+                    this.logged = false;
+                    throw new Error('user rejected');
+                }
 
-
+                toast({
+                    message: "Welcome on board!",
+                    type: "is-success",
+                    duration: 1250,
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
                 });
             } else {
-                this.smodal = !this.smodal
+                this.smodal = !this.smodal;
             }
+
+
         }
     }
 }
@@ -196,7 +207,7 @@ export function optionsComponent() {
                 const target = document.getElementById('spinner');
                 this.spinner.spin(target);
 
-               // const response = await harvester.harvest(null, null, null, null);
+                // const response = await harvester.harvest(null, null, null, null);
                 console.log({});
             } catch (error) {
                 PubSub.publish('ERROR', error.message);

@@ -1,9 +1,8 @@
 <div x-data="optionsComponent()" x-init="init()" class="box tile is-child">
     <div x-show="$store.wallet.logged !== 'true'">
         <p class=" has-text-centered title is-5">Instructions</p>
-        <p>Turn On the system to start interacting with AutomaCoin network.
-        </p>
-        <p>If the Zilpay Wallet is not already connected to this platform you may have to click the power button a second time to start the app's engine.
+        <p>
+            Turn On the system to start interacting with AutomaCoin network.
         </p>
     </div>
     <nav x-show="$store.wallet.logged === 'true'" class="panel" id="console">

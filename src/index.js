@@ -30,3 +30,4 @@ window.optionsComponent = optionsComponent;
 
 /* Initializes the Coin Animation */
 const automaCoin = coin(artifactCanvas);
+
