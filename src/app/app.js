@@ -65,9 +65,9 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.writeln('$ ready.');
-            this.output.writeln('$ ready.');
-            this.problems.writeln('$ ready.');
+            this.terminal.writeln('$ Terminal ready.');
+            this.output.writeln('$ Output ready.');
+            this.problems.writeln('$ Problems ready.');
         },
 
         clearBuff: function (buff) {
