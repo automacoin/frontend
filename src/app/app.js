@@ -113,24 +113,31 @@ export function userProfileComponent() {
 
                     this.isSigning = true;
                     try {
-                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, await window.zilPay.wallet.sign('I\'m logging in'));
-
-                        if (response.client) {
-
-                            this.logged = true;
-                            this.isSigning = false;
-                            Spruce.store('wallet').nonce = response.nonce;
-                            Spruce.store('wallet').balance = response.automacoin;
-                            Spruce.store('wallet').logged = this.logged.toString();
-                            Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
-                        }
-
+                        const signature = await window.zilPay.wallet.sign('I\'m logging in');
                     } catch (e) {
-
                         this.logged = false;
                         this.isSigning = false;
                         PubSub.publish('PROBLEMS', 'User refused to sign login message.');
                         throw new Error('user rejected');
+                    }
+
+                    try {
+
+                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, signature);
+
+                    } catch (e) {
+                        this.logged = false;
+                        this.isSigning = false;
+                        throw new Error(e);
+                    }
+
+                    if (response.client) {
+                        this.logged = true;
+                        this.isSigning = false;
+                        Spruce.store('wallet').nonce = response.nonce;
+                        Spruce.store('wallet').balance = response.automacoin;
+                        Spruce.store('wallet').logged = this.logged.toString();
+                        Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
                     }
 
 
