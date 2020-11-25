@@ -98,6 +98,13 @@ export function userProfileComponent() {
         histogram: function () {
         },
 
+
+        balance: async function () {
+            const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, '');
+            Spruce.store('wallet').nonce = response.nonce;
+            Spruce.store('wallet').balance = response.automacoin;
+        },
+
         login: async function () {
 
             if (typeof window.zilPay !== 'undefined') {
@@ -214,15 +221,15 @@ export function optionsComponent() {
         fire: async function () {
             try {
                 Spruce.store('engine').state = 'ongoing';
-                PubSub.publish('TERMINAL', 'Starting computation.');
+                PubSub.publish('TERMINAL', `Simulating machines from ${this.workunit.tm_set[0]} to ${this.workunit.tm_set[1]}.`);
 
                 this.loading = true;
 
                 const tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
 
-                PubSub.publish('OUTPUT', `The output of computation is.`);
-                PubSub.publish('TERMINAL', 'Computation is complete.');
-                PubSub.publish('TERMINAL', 'Submitting signed output to Network.');
+                PubSub.publish('OUTPUT', `The output of computation is stored in memory.`);
+                PubSub.publish('TERMINAL', `Computation happened in  D(${this.workunit.colors}, ${this.workunit.states}).`);
+                PubSub.publish('TERMINAL', `Submitting signed output of Workload with ID:${this.workunit.workload_ID} to Network.`);
 
                 let { from, assigned, workload_ID, turing_machines } = this.workunit;
                 await harvester.dispatch(from, assigned, workload_ID, turing_machines, tapes, 2, '');
@@ -242,7 +249,7 @@ export function optionsComponent() {
 
                 Spruce.store('engine').state = 'fetching';
 
-                PubSub.publish('TERMINAL', 'Fetching Turing Machines.');
+                PubSub.publish('TERMINAL', 'Fetching Turing Machines bricks.');
 
                 this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
 

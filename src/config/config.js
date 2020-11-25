@@ -38,7 +38,7 @@ export const TOKEN =  {
 }
 
 export const API = {
-    ACCOUNT: "",
-    WALLOC: "",
-    SUBMIT: "",
+    ACCOUNT: "https://http://bouncerproxy.com/api/account",
+    WALLOC: "https://http://bouncerproxy.com/api/allocation",
+    SUBMIT: "https://http://bouncerproxy.com/api/submit",
 }
