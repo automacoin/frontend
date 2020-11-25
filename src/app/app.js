@@ -133,9 +133,6 @@ export function userProfileComponent() {
                         throw new Error(e);
                     }
 
-                   
-
-
                 } else {
 
                     PubSub.publish('PROBLEMS', 'User refused to connect wallet.');
