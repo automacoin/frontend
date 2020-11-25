@@ -2649,6 +2649,11 @@ bulma-pageloader@^0.3.0:
   resolved "https://registry.yarnpkg.com/bulma-pageloader/-/bulma-pageloader-0.3.0.tgz#94a4ff7d9129cbe01dbc5cae4e64508e13563cf1"
   integrity sha512-lbahiqhBCov5AYdziHFnC5/JOhCrJWFTpdRiAkwW49IM/mf0whCWHVe8MuejZFu2PEs1mtH8Gnz8exEks4Q+7g==
 
+bulma-switch@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-2.0.0.tgz#7a187cd1bb8073e9a542478d936b89315f1ffcd8"
+  integrity sha512-myD38zeUfjmdduq+pXabhJEe3x2hQP48l/OI+Y0fO3HdDynZUY/VJygucvEAJKRjr4HxD5DnEm4yx+oDOBXpAA==
+
 bulma-toast@^2.0.3:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/bulma-toast/-/bulma-toast-2.1.0.tgz#06ff09c55327064c2c53eaa6367607b0008bddb0"
@@ -3108,7 +3113,7 @@ component-inherit@0.0.3:
 
 "compute-kernel@https://github.com/automacoin/compute-kernel.git":
   version "0.0.1"
-  resolved "https://github.com/automacoin/compute-kernel.git#edbe2639c678d3de06872193cec7f5abf1a72091"
+  resolved "https://github.com/automacoin/compute-kernel.git#c5389a0dd0b919be2bc6737c61b811332b41b579"
   dependencies:
     bignumber.js "^9.0.1"
     commander "^6.2.0"

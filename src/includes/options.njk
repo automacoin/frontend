@@ -9,24 +9,9 @@
         <p class="panel-tabs">
             <a :class="{ 'is-active': tab === 'console' }" @click="tab = 'console'">Controls</a>
         </p>
-        <div class="panel-block is-active">
-            <div x-show="$store.wallet.logged === 'true' && tab === 'console'" class="field is-grouped is-grouped-centered">
-                <p class="control">
-                    <button @click="fire()" x-bind:disabled="$store.engine.state !== 'ready' || $store.engine.state === 'fetching'" class="button is-success is-rounded">
-                        Compute
-                    </button>
-                </p>
-                <p class="control">
-                    <button @click="fetch()" x-bind:disabled="$store.engine.state === 'ongoing'" class="button is-warning is-rounded">
-                        Fetch
-                    </button>
-                </p>
-                <p class="control">
-                    <button x-bind:disabled="$store.engine.state !== 'ongoing' && $store.engine.state !== 'fetching'" class="button is-danger  is-rounded">
-                        Abort
-                    </button>
-                </p>
-            </div>
+        <div class="panel-block is-active has-text-centered" x-show="$store.wallet.logged === 'true' && tab === 'console'">
+            <input id="engineControl" type="checkbox" name="engineControl" @click="go()" class="switch is-rounded is-success is-medium">
+            <label for="engineControl" x-text="control"></label>
             <div class="ml-3" id="spinner"></div>
         </div>
     </nav>
