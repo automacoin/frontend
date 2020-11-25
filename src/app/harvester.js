@@ -30,7 +30,7 @@ export async function allocate(client, nonce, signature) {
 
 export async function dispatch(from, assigned, workload_ID, turing_machines, tapes, nonce, signature) {
 
-    return 'OK'
+    return 1;
     //return new SubmissionResponse(harvest(API.SUBMIT, 'get', JSON.stringify(new SubmissionRequest(from, assigned, workload_ID, turing_machines, tapes, nonce, signature))));
 }
 

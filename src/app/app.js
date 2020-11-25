@@ -103,31 +103,34 @@ export function userProfileComponent() {
             if (typeof window.zilPay !== 'undefined') {
                 const isConnect = await window.zilPay.wallet.connect();
                 if (isConnect) {
-                    console.log(isConnect);
 
                     this.isSigning = true;
                     try {
-                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, await window.zilPay.wallet.sign('I\'m logging in')/*MESSAGE.SIGNIN + Spruce.store('wallet').nonce)).signature*/);
+                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, await window.zilPay.wallet.sign('I\'m logging in'));
+
+                        if (response.client) {
+
+                            this.logged = true;
+                            this.isSigning = false;
+                            Spruce.store('wallet').nonce = response.nonce;
+                            Spruce.store('wallet').balance = response.automacoin;
+                            Spruce.store('wallet').logged = this.logged.toString();
+                            Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+                        }
+
                     } catch (e) {
 
                         this.logged = false;
                         this.isSigning = false;
+                        PubSub.publish('PROBLEMS', 'User refused to sign login message.');
                         throw new Error('user rejected');
                     }
 
-                    if (response.client) {
 
-                        this.logged = true;
-                        this.isSigning = false;
-                        Spruce.store('wallet').nonce = response.nonce;
-                        Spruce.store('wallet').balance = response.automacoin;
-                        Spruce.store('wallet').logged = this.logged.toString();
-                        Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
-                    }
                 } else {
-                    this.logged = false;
-                    this.isSigning = false;
-                    throw new Error('user rejected');
+
+                    PubSub.publish('PROBLEMS', 'User refused to connect wallet.');
+                    throw new Error('user not connected');
                 }
 
                 toast({
@@ -168,12 +171,6 @@ export function optionsComponent() {
             this.spinner = new Spinner(SPINNEROPTS)
         },
 
-        brake: function () {
-            PubSub.publish('ERROR', 'Execution stopped by User.');
-            Spruce.store('engine').state = 'ready';
-            this.spinner.stop();
-        },
-
         go: async function () {
 
             const control = document.getElementById('engineControl');
@@ -184,13 +181,12 @@ export function optionsComponent() {
 
                 this.control = "Up and running.";
                 toast({
-                    message: "Engine started!",
+                    message: "Engine Started!",
                     type: "is-info",
-                    duration: 1000,
+                    duration: 1250,
                     dismissible: true,
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
-                //this.routine();
 
                 while (document.getElementById('engineControl').checked === true) {
                     await this.fetch();
@@ -203,53 +199,36 @@ export function optionsComponent() {
 
             } else {
                 toast({
-                    message: "Stopped.",
+                    message: "Execution stopped.",
                     type: "is-danger",
                     duration: 1000,
                     dismissible: true,
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
-                this.control = "Idle";
-                console.log("idle")
+                this.control = "Idle.";
             }
 
         },
 
-        /* it would probabably hit max call stack.
-        routine: async function () {
-             if (document.getElementById('engineControl').checked === true) {
-                 await this.fetch();
-                 await this.fire();
-                 this.routine();
-             } else {
-                 PubSub.publish('PROBLEMS', 'Execution stopped by User.');
-                 Spruce.store('engine').state = 'ready';
-                 this.spinner.stop();
-                 return
-             }
-         },*/
 
         fire: async function () {
             try {
                 Spruce.store('engine').state = 'ongoing';
-                PubSub.publish('TERMINAL', 'Starting computation...');
+                PubSub.publish('TERMINAL', 'Starting computation.');
 
                 this.loading = true;
 
-                //const tapes = await engine.ignite(2, 2, 2000, 4607, 5615);
-
                 const tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
 
-                console.log(tapes);
-
-                PubSub.publish('OUTPUT', `The output of computation is:...`);
+                PubSub.publish('OUTPUT', `The output of computation is.`);
                 PubSub.publish('TERMINAL', 'Computation is complete.');
                 PubSub.publish('TERMINAL', 'Submitting signed output to Network.');
 
-                await harvester.dispatch(this.workunit.from, this.workunit.assigned, this.workunit.workload_ID, this.workunit.tm_set, tapes, nonce, await window.zilPay.wallet.sign('TEST'));
-
+                let { from, assigned, workload_ID, turing_machines } = this.workunit;
+                await harvester.dispatch(from, assigned, workload_ID, turing_machines, tapes, 2, '');
                 PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
             } catch (error) {
+                PubSub.publish('PROBLEMS', 'Submission of tapes or their computation went wrong.');
                 PubSub.publish('ERROR', error.message);
             } finally {
                 Spruce.store('engine').state = 'ready';
@@ -263,13 +242,9 @@ export function optionsComponent() {
 
                 Spruce.store('engine').state = 'fetching';
 
-                PubSub.publish('TERMINAL', 'Fetching Turing Machines ...');
+                PubSub.publish('TERMINAL', 'Fetching Turing Machines.');
 
-                const signature = '';
-
-                this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, signature);
-
-
+                this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
 
                 this.loading = true;
             } catch (error) {
@@ -281,7 +256,7 @@ export function optionsComponent() {
             }
 
             Spruce.store('engine').state = 'ready';
-            PubSub.publish('TERMINAL', 'Work unit loaded in memory, ready to compute.');
+            PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
 
         }
     }
