@@ -14,7 +14,7 @@ export const SPINNEROPTS = {
     top: "19%",
     left: "60%",
     shadow: "0 0 1px transparent",
-    zIndex: 2000000000,
+    zIndex: 39,
     className: "spinner",
     position: "absolute"
 }

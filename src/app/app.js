@@ -94,6 +94,7 @@ export function userProfileComponent() {
         isUnlocked: window.loggedIn,
         smodal: false,
         logged: false,
+        isSigning: false,
         histogram: function () {
         },
 
@@ -104,18 +105,28 @@ export function userProfileComponent() {
                 if (isConnect) {
                     console.log(isConnect);
 
-                    const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, await window.zilPay.wallet.sign('I\'m in')/*MESSAGE.SIGNIN + Spruce.store('wallet').nonce)).signature*/);
+                    this.isSigning = true;
+                    try {
+                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, await window.zilPay.wallet.sign('I\'m logging in')/*MESSAGE.SIGNIN + Spruce.store('wallet').nonce)).signature*/);
+                    } catch (e) {
+
+                        this.logged = false;
+                        this.isSigning = false;
+                        throw new Error('user rejected');
+                    }
+
                     if (response.client) {
 
                         this.logged = true;
+                        this.isSigning = false;
                         Spruce.store('wallet').nonce = response.nonce;
                         Spruce.store('wallet').balance = response.automacoin;
                         Spruce.store('wallet').logged = this.logged.toString();
                         Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
-                        console.log(response);
                     }
                 } else {
                     this.logged = false;
+                    this.isSigning = false;
                     throw new Error('user rejected');
                 }
 
@@ -171,8 +182,14 @@ export function optionsComponent() {
                 const target = document.getElementById('spinner');
                 this.spinner.spin(target);
 
-                this.control = "Up and running";
-                console.log("run")
+                this.control = "Up and running.";
+                toast({
+                    message: "Engine started!",
+                    type: "is-info",
+                    duration: 1000,
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
                 //this.routine();
 
                 while (document.getElementById('engineControl').checked === true) {
@@ -185,6 +202,13 @@ export function optionsComponent() {
                 this.spinner.stop();
 
             } else {
+                toast({
+                    message: "Stopped.",
+                    type: "is-danger",
+                    duration: 1000,
+                    dismissible: true,
+                    animate: { in: "fadeIn", out: "fadeOut" }
+                });
                 this.control = "Idle";
                 console.log("idle")
             }
@@ -209,15 +233,6 @@ export function optionsComponent() {
             try {
                 Spruce.store('engine').state = 'ongoing';
                 PubSub.publish('TERMINAL', 'Starting computation...');
-
-                toast({
-                    message: "Engine Started!",
-                    type: "is-danger",
-                    duration: 500,
-                    dismissible: true,
-                    animate: { in: "fadeIn", out: "fadeOut" }
-                });
-
 
                 this.loading = true;
 
@@ -254,13 +269,7 @@ export function optionsComponent() {
 
                 this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, signature);
 
-                toast({
-                    message: "Fetching new Data...",
-                    type: "is-warning",
-                    duration: 500,
-                    dismissible: true,
-                    animate: { in: "fadeIn", out: "fadeOut" }
-                });
+
 
                 this.loading = true;
             } catch (error) {

@@ -4,7 +4,7 @@
 
             <div class="engine">
                 <div class="power-switch">
-                    <input id="poweron" @click="login();" type="checkbox" x-bind:disabled="logged" x-model="logged" />
+                    <input id="poweron" @click="login();" type="checkbox" x-bind:disabled="logged === true || isSigning === true" x-model="logged" />
                     <div class="btn">
                         <svg class="power-off">
                             <line class="line" x1="75" y1="34" x2="75" y2="58"/>

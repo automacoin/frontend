@@ -11,7 +11,7 @@ export async function account(client, random_nonce, signature) {
     return new AccountResponse({
         client,
         nonce: random_nonce,
-        automacoin: '64726'
+        automacoin: 'N/A'
     });
     //return new AccountResponse(harvest(API.ACCOUNT, 'get', JSON.stringify(new AccountRequest(client, random_nonce, signature))));
 }
