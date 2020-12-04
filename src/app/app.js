@@ -90,14 +90,9 @@ export function dashboardComponent() {
 export function userProfileComponent() {
     return {
 
-        onpic: false,
-        isUnlocked: window.loggedIn,
-        smodal: false,
+        modalShow: false,
         logged: false,
         isSigning: false,
-        histogram: function () {
-        },
-
 
         balance: async function () {
             const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, '');
@@ -147,7 +142,7 @@ export function userProfileComponent() {
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
             } else {
-                this.smodal = !this.smodal;
+                this.modalShow = !this.modalShow;
             }
 
 
@@ -159,15 +154,9 @@ export function optionsComponent() {
 
     return {
 
-        aborter: null,
-
         spinner: null,
 
         tab: 'console',
-
-        loading: false,
-
-        computing: false,
 
         workunit: null,
 
@@ -185,7 +174,7 @@ export function optionsComponent() {
                 const target = document.getElementById('spinner');
                 this.spinner.spin(target);
 
-                this.control = "Up and running.";
+                this.control = "Running.";
                 toast({
                     message: "Engine Started!",
                     type: "is-info",
@@ -200,7 +189,6 @@ export function optionsComponent() {
                 }
 
                 PubSub.publish('PROBLEMS', 'Execution stopped by User.');
-                Spruce.store('engine').state = 'ready';
                 this.spinner.stop();
 
             } else {
@@ -219,10 +207,7 @@ export function optionsComponent() {
 
         fire: async function () {
             try {
-                Spruce.store('engine').state = 'ongoing';
                 PubSub.publish('TERMINAL', `Simulating machines from ${this.workunit.tm_set[0]} to ${this.workunit.tm_set[1]}.`);
-
-                this.loading = true;
 
                 const tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
 
@@ -237,8 +222,6 @@ export function optionsComponent() {
                 PubSub.publish('PROBLEMS', 'Submission of tapes or their computation went wrong.');
                 PubSub.publish('ERROR', error.message);
             } finally {
-                Spruce.store('engine').state = 'ready';
-                this.loading = false;
             }
         },
 
@@ -246,22 +229,15 @@ export function optionsComponent() {
 
             try {
 
-                Spruce.store('engine').state = 'fetching';
-
                 PubSub.publish('TERMINAL', 'Fetching Turing Machines bricks.');
 
                 this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
 
-                this.loading = true;
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
             } finally {
-
-                Spruce.store('engine').state = 'ready';
-                this.loading = false;
             }
 
-            Spruce.store('engine').state = 'ready';
             PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
 
         }

@@ -1,4 +1,4 @@
-<div x-data='userProfileComponent()' x-init="histogram()" class="tile is-child box">
+<div x-data='userProfileComponent()' class="tile is-child box">
     <div class="media">
         <div class="media-left">
 
@@ -28,12 +28,12 @@
 
     <div class="mt-5" id="histogram"></div>
 
-    <div class="modal" :class="{ 'is-active': smodal === true }">
+    <div class="modal" :class="{ 'is-active': modalShow === true }">
         <div class="modal-background"></div>
         <div class="modal-card automacoin-modal">
             <header class="modal-card-head">
                 <p class="modal-card-title"></p>
-                <button class="delete" aria-label="close" @click="smodal =! smodal"></button>
+                <button class="delete" aria-label="close" @click="modalShow =! modalShow"></button>
             </header>
             <section class="modal-card-body">
                 <a target="_blank" href="https://chrome.google.com/webstore/detail/zilpay/klnaejjgbibmhlephnhpmaofohgkpgkd">
@@ -44,7 +44,7 @@
                 </a>
                 <p class="mt-2 help is-danger has-text-centered">ZilPay has not been detected.</p>
                 <p class="help is-danger has-text-centered">
-                    Please enable it or install it then refresh the page.</p>
+                    Please enable or install it and refresh.</p>
             </section>
             <footer class="modal-card-foot"></footer>
         </div>

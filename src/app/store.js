@@ -7,9 +7,4 @@ Spruce.store('wallet', {
     balance:'--',
 })
 
-//possible states: unready | ready | ongoing
-Spruce.store('engine', {
-    state: 'unready'
-})
-
 export default Spruce 
