@@ -49,8 +49,6 @@ export function dashboardComponent() {
             return sub;
         },
 
-        token: null,
-
         init: function () {
 
             Spruce.watch('wallet.logged', logged => {
@@ -184,11 +182,17 @@ export function optionsComponent() {
                 });
 
                 while (document.getElementById('engineControl').checked === true) {
-                    await this.fetch();
-                    await this.fire();
+                    try {
+                        await this.fetch();
+                        await this.fire();
+                    } catch (e) {
+                        document.getElementById('engineControl').checked = false;
+                        PubSub.publish('PROBLEMS', 'Problems during execution: ' + e.message);
+                        this.spinner.stop()
+                    }
                 }
 
-                PubSub.publish('PROBLEMS', 'Execution stopped by User.');
+                PubSub.publish('PROBLEMS', 'Execution stopped by user.');
                 this.spinner.stop();
 
             } else {
@@ -219,9 +223,8 @@ export function optionsComponent() {
                 await harvester.dispatch(from, assigned, workload_ID, turing_machines, tapes, 2, '');
                 PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
             } catch (error) {
-                PubSub.publish('PROBLEMS', 'Submission of tapes or their computation went wrong.');
                 PubSub.publish('ERROR', error.message);
-            } finally {
+                throw new Error('Submission of tapes or something during computation went wrong.');  
             }
         },
 
@@ -233,12 +236,11 @@ export function optionsComponent() {
 
                 this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
 
+                PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
-            } finally {
+                throw new Error('Error during fetch phase.');    
             }
-
-            PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
 
         }
     }

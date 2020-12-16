@@ -21,15 +21,6 @@ export const SPINNEROPTS = {
 
 export const MESSAGE = {
     SIGNIN: "signing one-time nonce: ",
-
-    OUTPUT: {
-    },
-
-    PROBLEMS: {
-    },
-
-    TERMINAL: {
-    }
 }
 
 export const TOKEN =  {
