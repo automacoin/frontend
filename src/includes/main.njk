@@ -1,6 +1,6 @@
 <div x-data={} class="box on">
     <div class="tile is-ancestor">
-        <div class="tile is-8">
+        <div class="tile">
             <div class="tile is-vertical">
                 <div class="tile">
                     <div class="tile is-parent">
@@ -9,14 +9,14 @@
                     <div class="tile is-parent">
                         {% include "banner.njk" %}
                     </div>
+                    <div class="tile is-parent">
+                        {% include "dashboard.njk" %}
+                    </div>
                 </div>
                 <div class="tile is-parent">
                     {% include "options.njk" %}
                 </div>
             </div>
-        </div>
-        <div class="tile box is-parent">
-            {% include "dashboard.njk" %}
         </div>
     </div>
 </div>

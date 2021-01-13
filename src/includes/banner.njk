@@ -1,9 +1,11 @@
 <div class="tile is-child box " x-data="{}">
-    <h1  class="title" :class="{ ' is-automacoin-title ': $store.wallet.logged === 'true' }">AutomaCoin</h1>
-    <h2 class="subtitle">W e b &nbsp; C l i e n t &nbsp; V0</h2>
-    <p>
+    <h1 class="has-text-centered title" :class="{ ' is-automacoin-title ': $store.wallet.logged === 'true' }">Automacoin Client</h1>
+    <p class="mb-2">
         Help scientists compute models of the world by mining
         <strong>a ​new kind</strong>
         of responsible and universal cryptocurrency.
     </p>
+    <div id="coin">
+        <canvas id="artifactCanvas"></canvas>
+    </div>
 </div>
