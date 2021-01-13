@@ -1,28 +1,30 @@
 <div x-data='userProfileComponent()' class="tile is-child box">
-    <div class="media">
-        <div class="media-left">
-
-            <div class="engine">
-                <div class="power-switch">
-                    <input id="poweron" @click="login();" type="checkbox" x-bind:disabled="logged === true || isSigning === true" x-model="logged"/>
-                    <div class="btn">
-                        <svg class="power-off">
-                            <line class="line" x1="75" y1="34" x2="75" y2="58"/>
-                            <circle class="circle" cx="75" cy="80" r="35"/>
-                        </svg>
-                        <svg class="power-on">
-                            <line class="line" x1="75" y1="34" x2="75" y2="58"/>
-                            <circle class="circle" cx="75" cy="80" r="35"/>
-                        </svg>
-                    </div>
+    <div class="container mb-2">
+        <div class="engine">
+            <div class="power-switch">
+                <input id="poweron" @click="login();" type="checkbox" x-bind:disabled="logged === true || isSigning === true" x-model="logged"/>
+                <div class="btn">
+                    <svg class="power-off">
+                        <line class="line" x1="75" y1="34" x2="75" y2="58"/>
+                        <circle class="circle" cx="75" cy="80" r="35"/>
+                    </svg>
+                    <svg class="power-on">
+                        <line class="line" x1="75" y1="34" x2="75" y2="58"/>
+                        <circle class="circle" cx="75" cy="80" r="35"/>
+                    </svg>
                 </div>
             </div>
         </div>
-        <div class="media-content">
-            <p class="title is-5">Wallet Address</p>
-            <p class="subtitle is-6" x-text="$store.wallet.account"></p>
-            <p class="title is-5">Balance (ATC)</p>
-            <p class="subtitle is-6" x-text="$store.wallet.balance"></p>
+    </div>
+    <div class="container">
+        <div class="media">
+            <div class="media-left"></div>
+            <div class="media-content">
+                <p class="title is-5">Wallet Address</p>
+                <p class="subtitle is-6" x-text="$store.wallet.account"></p>
+                <p class="title is-5">Balance (ATC)</p>
+                <p class="subtitle is-6" x-text="$store.wallet.balance"></p>
+            </div>
         </div>
     </div>
 

@@ -15,7 +15,7 @@ export function ultimateQuestion() {
 export function dashboardComponent() {
     return {
         expand: false,
-        tab: "coin",
+        tab: "terminal",
         title: "Dashboard",
         terminal: new Terminal({
             cols: 32,
