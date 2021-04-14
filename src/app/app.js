@@ -117,13 +117,22 @@ export function userProfileComponent() {
                             Spruce.store('wallet').balance = response.automacoin;
                             Spruce.store('wallet').logged = this.logged.toString();
                             Spruce.store('wallet').account = window.zilPay.wallet.defaultAccount.base16;
+
+                            toast({
+                                message: "Welcome on board!",
+                                type: "is-success",
+                                duration: 1250,
+                                dismissible: true,
+                                animate: { in: "fadeIn", out: "fadeOut" }
+                            });
                         }
 
                     } catch (e) {
                         PubSub.publish('PROBLEMS', 'User refused to sign login message.');
                         this.logged = false;
-                        this.isSigning = false;
                         throw new Error(e);
+                    } finally {
+                        this.isSigning = false;
                     }
 
                 } else {
@@ -132,13 +141,7 @@ export function userProfileComponent() {
                     throw new Error('user not connected');
                 }
 
-                toast({
-                    message: "Welcome on board!",
-                    type: "is-success",
-                    duration: 1250,
-                    dismissible: true,
-                    animate: { in: "fadeIn", out: "fadeOut" }
-                });
+
             } else {
                 this.modalShow = !this.modalShow;
             }
@@ -224,7 +227,7 @@ export function optionsComponent() {
                 PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
-                throw new Error('Submission of tapes or something during computation went wrong.');  
+                throw new Error('Submission of tapes or something during computation went wrong.');
             }
         },
 
@@ -239,7 +242,7 @@ export function optionsComponent() {
                 PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
             } catch (error) {
                 PubSub.publish('ERROR', error.message);
-                throw new Error('Error during fetch phase.');    
+                throw new Error('Error during fetch phase.');
             }
 
         }
