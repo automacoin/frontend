@@ -104,11 +104,23 @@ export function userProfileComponent() {
                 const isConnect = await window.zilPay.wallet.connect();
                 if (isConnect) {
 
+                    let signature;
+                    let response;
                     this.isSigning = true;
                     try {
-                        const signature = await window.zilPay.wallet.sign('I\'m logging in');
+                        try {
+                            signature = await window.zilPay.wallet.sign('I\'m logging in');
+                        } catch (e) {
+                            PubSub.publish('ERROR', e.message);
+                            throw new Error('User refuse to sign in.')
+                        }
 
-                        const response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, signature);
+                        try {
+                            response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, signature);
+                        } catch (e) {
+                            PubSub.publish('ERROR', e.message);
+                            throw new Error('Unable to connect to node.')
+                        }
 
                         if (response.client) {
                             this.logged = true;
@@ -127,10 +139,21 @@ export function userProfileComponent() {
                             });
                         }
 
-                    } catch (e) {
-                        PubSub.publish('PROBLEMS', 'User refused to sign login message.');
+                    } catch (error) {
+                        console.log(error)
+                        PubSub.publish('PROBLEMS', error.message);
+
+                        toast({
+                            message: error.message,
+                            type: "is-danger",
+                            duration: 1250,
+                            dismissible: true,
+                            animate: { in: "fadeIn", out: "fadeOut" }
+                        });
+
                         this.logged = false;
-                        throw new Error(e);
+                        throw new Error('Error during fetch phase.');
+
                     } finally {
                         this.isSigning = false;
                     }
@@ -145,8 +168,6 @@ export function userProfileComponent() {
             } else {
                 this.modalShow = !this.modalShow;
             }
-
-
         }
     }
 }
@@ -179,7 +200,7 @@ export function optionsComponent() {
                 toast({
                     message: "Engine Started!",
                     type: "is-info",
-                    duration: 1250,
+                    duration: 900,
                     dismissible: true,
                     animate: { in: "fadeIn", out: "fadeOut" }
                 });
@@ -189,13 +210,23 @@ export function optionsComponent() {
                         await this.fetch();
                         await this.fire();
                     } catch (e) {
+
+                        toast({
+                            message: "Fatal Error. Aborting.",
+                            type: "is-danger",
+                            duration: 1450,
+                            dismissible: true,
+                            animate: { in: "fadeIn", out: "fadeOut" }
+                        });
+
+                        this.control = "Idle.";
                         document.getElementById('engineControl').checked = false;
                         PubSub.publish('PROBLEMS', 'Problems during execution: ' + e.message);
                         this.spinner.stop()
                     }
                 }
 
-                PubSub.publish('PROBLEMS', 'Execution stopped by user.');
+                PubSub.publish('PROBLEMS', 'Execution stopped.');
                 this.spinner.stop();
 
             } else {
@@ -237,7 +268,12 @@ export function optionsComponent() {
 
                 PubSub.publish('TERMINAL', 'Fetching Turing Machines bricks.');
 
-                this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
+                try {
+                    this.workunit = await harvester.allocate(Spruce.store('wallet').account, Spruce.store('wallet').nonce, '');
+                } catch (e) {
+                    throw new Error(e.message);
+                }
+
 
                 PubSub.publish('TERMINAL', 'Workload is in memory, ready to be done.');
             } catch (error) {

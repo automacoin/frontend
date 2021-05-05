@@ -3112,8 +3112,8 @@ component-inherit@0.0.3:
   integrity sha1-ZF/ErfWLcrZJ1crmUTVhnbJv8UM=
 
 "compute-kernel@https://github.com/automacoin/compute-kernel.git":
-  version "0.0.1"
-  resolved "https://github.com/automacoin/compute-kernel.git#c5389a0dd0b919be2bc6737c61b811332b41b579"
+  version "0.1.0"
+  resolved "https://github.com/automacoin/compute-kernel.git#53694412fdd85c99419fc5a8a9928719373ff82a"
   dependencies:
     bignumber.js "^9.0.1"
     commander "^6.2.0"

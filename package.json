@@ -1,6 +1,6 @@
 {
   "name": "automacoin-client",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": "true",
   "scripts": {
     "serve:assets": "APP_ENV=development webpack --config webpack.dev.js --watch",

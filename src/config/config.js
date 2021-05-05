@@ -24,12 +24,12 @@ export const MESSAGE = {
 }
 
 export const TOKEN =  {
-    TURING:"TCS",
+    TURING:"TCRD",
     AUTOMACOIN:"ATC"
 }
 
 export const API = {
-    ACCOUNT: "http://bouncerproxy.com/api/account",
+    ACCOUNT: "https://run.mocky.io/v3/4df619d8-0592-4aba-a1d2-2263705f8754",
     WALLOC: "http://bouncerproxy.com/api/allocation",
-    SUBMIT: "http://bouncerproxy.com/api/submit",
+    SUBMIT: "https://run.mocky.io/v3/16b451c6-ba64-4c1e-bac2-166aefd4695f",
 }
