@@ -16,7 +16,7 @@ export function dashboardComponent() {
     return {
         expand: false,
         tab: "terminal",
-        title: "Dashboard",
+        title: "Board",
         terminal: new Terminal({
             cols: 32,
             rows: 10
