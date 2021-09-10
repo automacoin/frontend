@@ -21,7 +21,7 @@
         <div class="modal" :class="{ 'is-active': expand === true }">
             <div class="modal-background"></div>
             <div class="modal-content" id="terminalOverlay"></div>
-            <button @click="expand =!expand; attach()" class="modal-close is-large" aria-label="close"></button>
+            <button @click="expand =!expand; attach()" style="background-color:red !important" class="modal-close is-large" aria-label="close"></button>
         </div>
         <div x-show="tab === 'nodes'">
             <a class="panel-block is-active">

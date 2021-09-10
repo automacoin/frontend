@@ -97,7 +97,7 @@ export function dashboardComponent() {
 
         detach: function () {
             document.getElementById('terminalOverlay').appendChild(document.getElementById(this.tab))
-            this[this.tab].resize(80, 30);
+            this[this.tab].resize(100, 40);
 
         },
 
