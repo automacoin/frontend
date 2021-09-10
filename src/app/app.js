@@ -58,16 +58,16 @@ export function dashboardComponent() {
             let sub;
             switch (c) {
                 case 0:
-                    sub = (msg, data) => that.terminal.writeln(`$ ${data}`);
+                    sub = (msg, data) => that.terminal.writeln(`[${Date.now()}][ATC] ${data}`);
                     break;
                 case 1:
-                    sub = (msg, data) => that.problems.writeln(`$ ${data}`);
+                    sub = (msg, data) => that.problems.writeln(`[${Date.now()}][ATC] ${data}`);
                     break;
                 case 2:
-                    sub = (msg, data) => that.output.writeln(`$ ${data}`);
+                    sub = (msg, data) => that.output.writeln(`[${Date.now()}][ATC] ${data}`);
                     break;
                 default:
-                    sub = (msg, data) => console.log(`$ ${data}`);
+                    sub = (msg, data) => console.log(`[${Date.now()}][ATC] ${data}`);
             }
             return sub;
         },
@@ -86,9 +86,9 @@ export function dashboardComponent() {
             this.output.open(document.getElementById('output'));
             this.problems.open(document.getElementById('problems'));
 
-            this.terminal.writeln('$ Terminal ready.');
-            this.output.writeln('$ Output ready.');
-            this.problems.writeln('$ Problems ready.');
+            this.terminal.writeln(`[${Date.now()}][ATC] Terminal ready.`);
+            this.output.writeln(`[${Date.now()}][ATC] Output ready.`);
+            this.problems.writeln(`[${Date.now()}][ATC] Problems ready.`);
         },
 
         clearBuff: function (buff) {
