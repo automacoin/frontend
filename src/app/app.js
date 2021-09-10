@@ -30,6 +30,29 @@ export function dashboardComponent() {
             rows: 10
         }),
 
+        download: function (filename, text) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        },
+
+        startDownload: function () {
+            const term = this[this.tab]
+            term.selectAll();
+            const text = term.getSelection();
+            const filename = this.tab + Date.now() + ".log";
+
+            this.download(filename, text);
+            term.clearSelection();
+        },
+
         subscription: function (c) {
             let that = this;
             let sub;
@@ -116,7 +139,15 @@ export function userProfileComponent() {
                         }
 
                         try {
-                            response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, signature);
+                            //deactivate in production
+                            response = {
+                                client: window.zilPay.wallet.defaultAccount.base16,
+                                nonce: 42,
+                                automacoin: 24,
+                            }
+
+                            //activate in production
+                            //response = await harvester.account(window.zilPay.wallet.defaultAccount.base16, Spruce.store('wallet').nonce, signature);
                         } catch (e) {
                             PubSub.publish('ERROR', e.message);
                             throw new Error('Unable to connect to node.')
