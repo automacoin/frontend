@@ -24,7 +24,7 @@ export const MESSAGE = {
 }
 
 export const TOKEN =  {
-    TURING:"TCRD",
+    TURING:"TGCRED",
     AUTOMACOIN:"ATC"
 }
 
