@@ -2,10 +2,16 @@ import { WorkAllocationRequest } from './models/workAllocationRequest';
 import { API, TOKEN } from '../config/config';
 import { AccountRequest } from './models/accountRequest';
 import { AccountResponse } from './models/accountResponse';
-import { SubmissionResponse } from './models/submissioneResponse';
+import { SubmissionResponse } from './models/submissionResponse';
 import { WorkAllocationResponse } from './models/workAllocationResponse';
+import {NetworkInfoRequest } from './models/networkInfoRequest'
+import { NetworkInfoResponse } from './models/networkInfoResponse';
 
 /** This module is meant to be run in a separate thread, it roams the AutomaCoin Network fetching resources and submitting results*/
+
+export async function networkStatus() {
+    return new NetworkInfoResponse(await harvest(API.NETWORK, JSON.stringify(new NetworkInfoRequest())));
+}
 
 export async function account(client, random_nonce, signature) {
     return new AccountResponse(await harvest(API.ACCOUNT, JSON.stringify(new AccountRequest(client, random_nonce, signature))));

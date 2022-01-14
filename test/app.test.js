@@ -1,5 +1,7 @@
-import { ultimateQuestion } from '../src/app/app'
 
-it ('the answer to the ultimate question should be 42', () => {
-    expect(ultimateQuestion()).toBe(42);
+import { normalize } from '../src/app/engine'
+
+
+it('trimming...', () => {
+    expect(normalize('000001010101111000000').toBe('1010101111'))
 })
