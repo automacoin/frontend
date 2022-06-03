@@ -286,18 +286,6 @@ export function optionsComponent() {
             return distribution
         },
 
-        from_simulator_to_library_format: function (input) {
-
-            return {
-                "client": "0x00",
-                "tm_start": parseInt(input.interval[0]),
-                "states": input.states,
-                "runtime": input.runtime,
-                "brick_size": parseInt(input.interval[1]) - parseInt(input.interval[0]),
-                "tapes": count_different(input.tapes)
-            }
-        },
-
 
         fire: async function () {
             try {
@@ -308,7 +296,6 @@ export function optionsComponent() {
 
                 PubSub.publish('OUTPUT', `The output of computation is stored in memory.`);
                 PubSub.publish('TERMINAL', `Computation happened in  D(${colors}, ${this.workunit.states}).`);
-                //PubSub.publish('TERMINAL', `Submitting signed output of Workload with ID:${this.workunit.workload_ID} to Network.`);
 
                 tapes = count_different(result_w_tapes.tapes)
 

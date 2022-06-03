@@ -1,5 +1,5 @@
 import { WorkAllocationRequest } from './models/workAllocationRequest';
-import { API, TOKEN } from '../config/config';
+import { API} from '../config/config';
 import { AccountRequest } from './models/accountRequest';
 import { AccountResponse } from './models/accountResponse';
 import { SubmissionRequest } from './models/submissionRequest';
