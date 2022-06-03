@@ -273,21 +273,48 @@ export function optionsComponent() {
 
         },
 
+        count_different: function (tapes) {
+            distribution = {}
+            tapes.forEach(element => {
+                if (!distribution[element]) {
+                    distribution[element] = 1
+                } else {
+                    distribution[element]++
+                }
+            })
+
+            return distribution
+        },
+
+        from_simulator_to_library_format: function (input) {
+
+            return {
+                "client": "0x00",
+                "tm_start": parseInt(input.interval[0]),
+                "states": input.states,
+                "runtime": input.runtime,
+                "brick_size": parseInt(input.interval[1]) - parseInt(input.interval[0]),
+                "tapes": count_different(input.tapes)
+            }
+        },
+
 
         fire: async function () {
             try {
-                PubSub.publish('TERMINAL', `Simulating machines from ${this.workunit.tm_set[0]} to ${this.workunit.tm_set[1]}.`);
+                PubSub.publish('TERMINAL', `Simulating machines from ${this.workunit.tm_start} to ${this.workunit.tm_start + this.workunit.brick_size}.`);
 
-                const result_w_tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
+                let colors = 2 || this.workunit.colors
+                let result_w_tapes = await engine.ignite(this.workunit.states, colors, this.workunit.runtime, parseInt(this.workunit.tm_start), parseInt(this.workunit.tm_start) + parseInt(this.workunit.brick_size));
 
                 PubSub.publish('OUTPUT', `The output of computation is stored in memory.`);
-                PubSub.publish('TERMINAL', `Computation happened in  D(${this.workunit.colors}, ${this.workunit.states}).`);
-                PubSub.publish('TERMINAL', `Submitting signed output of Workload with ID:${this.workunit.workload_ID} to Network.`);
+                PubSub.publish('TERMINAL', `Computation happened in  D(${colors}, ${this.workunit.states}).`);
+                //PubSub.publish('TERMINAL', `Submitting signed output of Workload with ID:${this.workunit.workload_ID} to Network.`);
 
-                let { from, assigned, workload_ID, turing_machines } = this.workunit;
-                await harvester.dispatch(from, assigned, workload_ID, turing_machines, result_w_tapes, 2, '');
+                tapes = count_different(result_w_tapes.tapes)
+
+                await harvester.dispatch(Spruce.store('wallet').account, this.workunit.tm_start, this.workunit.brick_size, tapes);
                 PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
-            } catch (error) { 
+            } catch (error) {
                 PubSub.publish('ERROR', error.message);
                 throw new Error('Submission of tapes or something during computation went wrong.');
             }

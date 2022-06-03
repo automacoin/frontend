@@ -22,8 +22,8 @@ export async function allocate(client, nonce, signature) {
     return new WorkAllocationResponse(await harvest(API.WALLOC, JSON.stringify(new WorkAllocationRequest(client, nonce, signature))));
 }
 
-export async function dispatch(from, assigned, workload_ID, turing_machines, tapes, nonce, signature) {
-    return new SubmissionResponse(await harvest(API.SUBMIT, JSON.stringify(new SubmissionRequest(from, assigned, workload_ID, turing_machines, tapes, nonce, signature))));
+export async function dispatch(client, tm_start, brick_size, tapes) {
+    return new SubmissionResponse(await harvest(API.SUBMIT, JSON.stringify(new SubmissionRequest(client, tm_start, brick_size, tapes))));
 }
 
 async function harvest(url, body) {
