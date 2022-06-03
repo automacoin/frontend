@@ -278,16 +278,16 @@ export function optionsComponent() {
             try {
                 PubSub.publish('TERMINAL', `Simulating machines from ${this.workunit.tm_set[0]} to ${this.workunit.tm_set[1]}.`);
 
-                const tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
+                const result_w_tapes = await engine.ignite(this.workunit.states, this.workunit.colors, this.workunit.runtime, this.workunit.tm_set[0], this.workunit.tm_set[1]);
 
                 PubSub.publish('OUTPUT', `The output of computation is stored in memory.`);
                 PubSub.publish('TERMINAL', `Computation happened in  D(${this.workunit.colors}, ${this.workunit.states}).`);
                 PubSub.publish('TERMINAL', `Submitting signed output of Workload with ID:${this.workunit.workload_ID} to Network.`);
 
                 let { from, assigned, workload_ID, turing_machines } = this.workunit;
-                await harvester.dispatch(from, assigned, workload_ID, turing_machines, tapes, 2, '');
+                await harvester.dispatch(from, assigned, workload_ID, turing_machines, result_w_tapes, 2, '');
                 PubSub.publish('TERMINAL', 'Submission complete. Job is over, fetch new data.');
-            } catch (error) {
+            } catch (error) { 
                 PubSub.publish('ERROR', error.message);
                 throw new Error('Submission of tapes or something during computation went wrong.');
             }
