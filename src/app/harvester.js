@@ -2,6 +2,7 @@ import { WorkAllocationRequest } from './models/workAllocationRequest';
 import { API, TOKEN } from '../config/config';
 import { AccountRequest } from './models/accountRequest';
 import { AccountResponse } from './models/accountResponse';
+import { SubmissionRequest } from './models/submissionRequest';
 import { SubmissionResponse } from './models/submissionResponse';
 import { WorkAllocationResponse } from './models/workAllocationResponse';
 import {NetworkInfoRequest } from './models/networkInfoRequest'
